@@ -1,21 +1,28 @@
 package com.example.pan.presentation.views.signin.starting_page
 
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.pan.R
-import com.example.pan.core.StringConstants
 import com.example.pan.core.StringConstants.ALREADY_HAS_ACCOUNT
+import com.example.pan.core.StringConstants.GOOGLE_SIGNIN
+import com.example.pan.core.StringConstants.NEW_ACCOUNT
 import com.example.pan.core.StringConstants.SIGNIN
+import com.example.pan.core.StringConstants.SIGNUP
 import com.example.pan.core.StringConstants.WELCOME
 import com.example.pan.domain.models.Response.Success
+import com.example.pan.presentation.navigation.Screen
 import com.example.pan.presentation.views.components.ContentHolder
 import com.example.pan.presentation.views.components.LargeSpacer
+import com.example.pan.presentation.views.components.MediumSpacer
+import com.example.pan.presentation.views.components.SmallMediumSpacer
 import com.example.pan.presentation.views.signin.starting_page.components.TextPlusButton
 
 @Composable
@@ -24,12 +31,6 @@ fun StartingPageScreen(
     navController: NavController
 ) {
     val state = viewModel.state.collectAsState().value
-
-    val backgroundImageId = if (isSystemInDarkTheme()) {
-        R.drawable.starting_page_deco_dark
-    } else {
-        R.drawable.starting_page_deco_light
-    }
 
     // TODO: Move this to SplashScreen when its created
     LaunchedEffect(
@@ -45,12 +46,11 @@ fun StartingPageScreen(
         }
     }
 
-    ContentHolder(
-        backgroundImage = backgroundImageId
-    ) {
+    ContentHolder {
         Text(
             text = WELCOME,
-            style = MaterialTheme.typography.titleLarge
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.primary
         )
 
         LargeSpacer()
@@ -59,7 +59,34 @@ fun StartingPageScreen(
             text = ALREADY_HAS_ACCOUNT,
             buttonText = SIGNIN
         ) {
-            // TODO: Navigate to login screen
+            navController.navigate(Screen.LoginScreen.route)
+        }
+
+        MediumSpacer()
+
+        TextPlusButton(
+            text = NEW_ACCOUNT,
+            buttonText = SIGNUP
+        ) {
+            // TODO: Navigate to signup screen
+        }
+
+        SmallMediumSpacer()
+
+        Divider()
+
+        SmallMediumSpacer()
+
+        OutlinedButton(
+            onClick = {
+                // TODO: Sign in with Google
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = GOOGLE_SIGNIN,
+                style = MaterialTheme.typography.bodyMedium,
+            )
         }
     }
 }
