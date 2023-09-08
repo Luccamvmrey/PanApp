@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "355668970727",
+    "project_id": "panapp-ff4e1",
+    "storage_bucket": "panapp-ff4e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:355668970727:android:cf9a139b89e993faeea642",
+        "android_client_info": {
+          "package_name": "com.example.pan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "355668970727-pgco97u5grf92fp98va1sf7q9ei0mjlm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHPRdNATLSnuzU4QCqonKwgoTa_CQ8okY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "355668970727-pgco97u5grf92fp98va1sf7q9ei0mjlm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
