@@ -43,15 +43,8 @@ fun StartingPageScreen(
         val getUserResponse = state.getUserResponse
 
         if (getUserResponse is Success) {
-            val user = getUserResponse.data
-            val userId = user.userId
-
-            userId?.run {
-                delayNavigation {
-                    navController.navigate(
-                        Screen.MainPageScreen.withArgs(userId)
-                    )
-                }
+            delayNavigation {
+                navController.navigate(Screen.MainPageScreen.route)
             }
         } else {
             viewModel.setIsHandlingState(false)
