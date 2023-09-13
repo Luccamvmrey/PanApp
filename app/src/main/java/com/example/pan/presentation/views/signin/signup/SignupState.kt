@@ -7,7 +7,6 @@ import com.example.pan.core.StringConstants.NO_VALUE
 import com.example.pan.domain.models.InputError
 import com.example.pan.domain.models.Response
 import com.example.pan.domain.models.Response.Loading
-import com.example.pan.domain.models.user.User
 
 class SignupState {
     // Variables
@@ -24,5 +23,5 @@ class SignupState {
     var isHandlingResponse by mutableStateOf(false)
 
     // Responses
-    var createUserResponse by mutableStateOf<Response<User>>(Loading)
+    var createUserResponse by mutableStateOf<Response<Boolean>>(Loading)
 }
