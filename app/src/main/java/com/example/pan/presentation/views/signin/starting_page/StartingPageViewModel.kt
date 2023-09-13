@@ -16,7 +16,12 @@ class StartingPageViewModel @Inject constructor(
     private val _state = MutableStateFlow(StartingPageState())
     val state = _state.asStateFlow()
 
+    fun setIsHandlingState(isHandlingResponse: Boolean) {
+        _state.value.isHandlingResponse = isHandlingResponse
+    }
+
     fun getLoggedUser() = viewModelScope.launch {
+        _state.value.isHandlingResponse = true
         _state.value.getUserResponse = userUseCases.getLoggedUser()
     }
 }

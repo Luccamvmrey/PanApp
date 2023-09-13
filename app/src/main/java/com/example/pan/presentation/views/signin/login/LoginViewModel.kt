@@ -80,13 +80,10 @@ class LoginViewModel @Inject constructor(
     }
 
     fun logUser() = viewModelScope.launch {
+        _state.value.isHandlingResponse = true
         _state.value.logUserResponse = userUseCases.logUser(
             email = _state.value.email,
             password = _state.value.password
         )
-    }
-
-    fun getUser() = viewModelScope.launch {
-        _state.value.getUserResponse = userUseCases.getLoggedUser()
     }
 }

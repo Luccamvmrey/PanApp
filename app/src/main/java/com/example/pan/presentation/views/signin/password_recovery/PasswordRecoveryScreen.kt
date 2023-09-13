@@ -1,5 +1,6 @@
-package com.example.pan.presentation.views.signin.signup
+package com.example.pan.presentation.views.signin.password_recovery
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,28 +10,25 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.example.pan.core.StringConstants.EMAIL
-import com.example.pan.core.StringConstants.NAME
-import com.example.pan.core.StringConstants.PASSWORD
-import com.example.pan.core.StringConstants.SIGNUP
-import com.example.pan.core.delayNavigation
-import com.example.pan.presentation.navigation.Screen
+import com.example.pan.core.StringConstants.PASSWORD_RECOVERY_EMAIL_NOT_SENT
+import com.example.pan.core.StringConstants.PASSWORD_RECOVERY_EMAIL_SENT
+import com.example.pan.core.StringConstants.RECOVER_PASSWORD
+import com.example.pan.core.StringConstants.SEND_EMAIL
 import com.example.pan.presentation.views.components.ContentHolder
 import com.example.pan.presentation.views.components.ExtraLargeSpacer
-import com.example.pan.presentation.views.components.LargeSpacer
-import com.example.pan.presentation.views.components.PanPasswordTextField
 import com.example.pan.presentation.views.components.PanTextField
 import com.example.pan.presentation.views.components.ResponseHandler
 
 @Composable
-fun SignupScreen(
-    viewModel: SignupViewModel = hiltViewModel(),
-    navController: NavController
+fun PasswordRecoveryScreen(
+    viewModel: PasswordRecoveryViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.collectAsState().value
+    val context = LocalContext.current
 
     ContentHolder (
         verticalPadding = 154.dp,
@@ -42,7 +40,7 @@ fun SignupScreen(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = SIGNUP,
+                    text = RECOVER_PASSWORD,
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSurface
                 )
@@ -51,28 +49,10 @@ fun SignupScreen(
             ExtraLargeSpacer()
 
             PanTextField(
-                value = state.name,
-                onValueChange = { viewModel.setName(it) },
-                labelText = NAME,
-                error = state.nameError
-            )
-
-            LargeSpacer()
-
-            PanTextField(
                 value = state.email,
                 onValueChange = { viewModel.setEmail(it) },
                 labelText = EMAIL,
                 error = state.emailError
-            )
-
-            LargeSpacer()
-
-            PanPasswordTextField(
-                value = state.password,
-                onValueChange = { viewModel.setPassword(it) },
-                labelText = PASSWORD,
-                error = state.passwordError
             )
 
             ExtraLargeSpacer()
@@ -80,23 +60,26 @@ fun SignupScreen(
             Button(
                 onClick = {
                     if (viewModel.checkFields()) {
-                        viewModel.createUser()
+                        viewModel.sendPasswordRecoveryEmail()
                     }
-                },
-                modifier = Modifier.fillMaxWidth()
+                }
             ) {
-                Text(text = SIGNUP)
+                Text(text = SEND_EMAIL)
             }
         } else {
             ResponseHandler(
-                response = state.createUserResponse,
+                response = state.passwordRecoveryEmailResponse,
                 onSuccess = {
-                    delayNavigation {
-                        navController.navigate(Screen.MainPageScreen.route)
-                    }
+                    Toast.makeText(
+                        context,
+                        PASSWORD_RECOVERY_EMAIL_SENT, Toast.LENGTH_SHORT
+                    ).show()
                 },
-                onFailure = { error ->
-                    viewModel.handleError(error)
+                onFailure = {
+                    Toast.makeText(
+                        context,
+                        PASSWORD_RECOVERY_EMAIL_NOT_SENT, Toast.LENGTH_SHORT
+                    ).show()
                 }
             )
         }

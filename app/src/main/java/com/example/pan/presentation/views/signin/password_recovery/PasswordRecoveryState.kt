@@ -1,4 +1,4 @@
-package com.example.pan.presentation.views.signin.login
+package com.example.pan.presentation.views.signin.password_recovery
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -8,18 +8,16 @@ import com.example.pan.domain.models.InputError
 import com.example.pan.domain.models.Response
 import com.example.pan.domain.models.Response.Loading
 
-class LoginState {
+class PasswordRecoveryState {
     // Variables
     var email by mutableStateOf(NO_VALUE)
-    var password by mutableStateOf(NO_VALUE)
 
     // Errors
     var emailError by mutableStateOf(InputError())
-    var passwordError by mutableStateOf(InputError())
 
-    // Boolean
+    // Booleans
     var isHandlingResponse by mutableStateOf(false)
 
-    // Responses
-    var logUserResponse by mutableStateOf<Response<Boolean>>(Loading)
+    // Response
+    var passwordRecoveryEmailResponse by mutableStateOf<Response<Boolean>>(Loading)
 }

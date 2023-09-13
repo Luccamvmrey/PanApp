@@ -4,7 +4,7 @@ import com.example.pan.domain.models.Response
 import com.example.pan.domain.models.user.User
 
 interface UserRepository {
-    suspend fun createUser(name: String, email: String, password: String): Response<User>
+    suspend fun createUser(name: String, email: String, password: String): Response<Boolean>
 
     suspend fun logUser(email: String, password: String): Response<Boolean>
 

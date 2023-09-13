@@ -25,7 +25,7 @@ class UserRepositoryImpl @Inject constructor(
         name: String,
         email: String,
         password: String
-    ): Response<User> = try {
+    ): Response<Boolean> = try {
         auth.createUserWithEmailAndPassword(
             email,
             password
@@ -40,7 +40,7 @@ class UserRepositoryImpl @Inject constructor(
         )
         usersRef.document(id).set(user).await()
 
-        Success(user)
+        Success(true)
     } catch (e: Exception) {
         Failure(e)
     }

@@ -19,6 +19,7 @@ import com.example.pan.core.StringConstants.NEW_ACCOUNT
 import com.example.pan.core.StringConstants.SIGNIN
 import com.example.pan.core.StringConstants.SIGNUP
 import com.example.pan.core.StringConstants.WELCOME
+import com.example.pan.core.delayNavigation
 import com.example.pan.domain.models.Response.Success
 import com.example.pan.presentation.navigation.Screen
 import com.example.pan.presentation.views.components.ContentHolder
@@ -43,8 +44,17 @@ fun StartingPageScreen(
 
         if (getUserResponse is Success) {
             val user = getUserResponse.data
+            val userId = user.userId
 
-            // TODO: Navigate to main screen with userId as parameter
+            userId?.run {
+                delayNavigation {
+                    navController.navigate(
+                        Screen.MainPageScreen.withArgs(userId)
+                    )
+                }
+            }
+        } else {
+            viewModel.setIsHandlingState(false)
         }
     }
 

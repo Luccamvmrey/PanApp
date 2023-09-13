@@ -18,8 +18,8 @@ import com.example.pan.core.StringConstants.EMAIL
 import com.example.pan.core.StringConstants.FORGOT_PASSWORD
 import com.example.pan.core.StringConstants.PASSWORD
 import com.example.pan.core.StringConstants.SIGNIN
-import com.example.pan.domain.models.Response.Success
-import com.example.pan.domain.models.user.User
+import com.example.pan.core.delayNavigation
+import com.example.pan.presentation.navigation.Screen
 import com.example.pan.presentation.views.components.ContentHolder
 import com.example.pan.presentation.views.components.ExtraLargeSpacer
 import com.example.pan.presentation.views.components.ExtraSmallSpacer
@@ -77,7 +77,7 @@ fun LoginScreen(
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.clickable {
-                    // TODO: Navigate to forgot password screen
+                    navController.navigate(Screen.PasswordRecoveryScreen.route)
                 }
             )
 
@@ -97,13 +97,8 @@ fun LoginScreen(
             ResponseHandler (
                 response = state.logUserResponse,
                 onSuccess = {
-                    viewModel.getUser()
-
-                    if (state.getUserResponse is Success) {
-                        val userData = (state.getUserResponse as Success<User>).data
-                        val userId = userData.userId
-
-                        // TODO: Navigate to main page with userID
+                    delayNavigation {
+                        navController.navigate(Screen.MainPageScreen.route)
                     }
                 },
                 onFailure = { error ->

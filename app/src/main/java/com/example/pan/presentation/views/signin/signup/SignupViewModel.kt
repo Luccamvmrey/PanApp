@@ -110,6 +110,7 @@ class SignupViewModel @Inject constructor(
     }
 
     fun createUser() = viewModelScope.launch {
+        _state.value.isHandlingResponse = true
         _state.value.createUserResponse = userUseCases.createUser(
             name = _state.value.name,
             email = _state.value.email,

@@ -14,6 +14,9 @@ object StringConstants {
     const val EMAIL = "E-mail"
     const val PASSWORD = "Senha"
     const val FORGOT_PASSWORD = "Esqueceu sua senha?"
+    const val RECOVER_PASSWORD = "Recuperar Senha"
+    const val SEND_EMAIL = "Enviar E-mail"
+    const val PASSWORD_RECOVERY_EMAIL_SENT = "E-mail de recuperação de senha enviado com sucesso!"
 
     // Errors
     // User
@@ -25,4 +28,5 @@ object StringConstants {
     const val INVALID_PASSWORD = "Senha inválida."
     const val PASSWORD_TOO_SHORT = "Senha deve ser pelo menos 6 caracteres."
     const val REQUIRED_FIELD = "Campo obrigatório."
+    const val PASSWORD_RECOVERY_EMAIL_NOT_SENT = "Erro ao enviar e-mail de recuperação de senha."
 }
