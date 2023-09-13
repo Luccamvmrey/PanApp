@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.pan.core.StringConstants.EMAIL_NOT_FOUND
 import com.example.pan.core.StringConstants.INVALID_EMAIL
 import com.example.pan.core.StringConstants.INVALID_PASSWORD
+import com.example.pan.core.StringConstants.REQUIRED_FIELD
 import com.example.pan.domain.models.InputError
 import com.example.pan.domain.use_cases.user.UserUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,14 +36,14 @@ class LoginViewModel @Inject constructor(
         if (_state.value.email.isEmpty()) {
             _state.value.emailError = InputError(
                 isError = true,
-                message = "Campo obrigatório"
+                message = REQUIRED_FIELD
             )
         }
 
         if (_state.value.password.isEmpty()) {
             _state.value.passwordError = InputError(
                 isError = true,
-                message = "Campo obrigatório"
+                message = REQUIRED_FIELD
             )
         }
 
@@ -83,5 +84,9 @@ class LoginViewModel @Inject constructor(
             email = _state.value.email,
             password = _state.value.password
         )
+    }
+
+    fun getUser() = viewModelScope.launch {
+        _state.value.getUserResponse = userUseCases.getLoggedUser()
     }
 }

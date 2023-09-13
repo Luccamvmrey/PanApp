@@ -1,5 +1,6 @@
 package com.example.pan.presentation.views.signin.starting_page
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
@@ -9,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.pan.core.StringConstants.ALREADY_HAS_ACCOUNT
@@ -46,7 +48,10 @@ fun StartingPageScreen(
         }
     }
 
-    ContentHolder {
+    ContentHolder (
+        verticalPadding = 154.dp,
+        verticalArrangement = Arrangement.Top
+    ) {
         Text(
             text = WELCOME,
             style = MaterialTheme.typography.titleLarge,
@@ -68,7 +73,7 @@ fun StartingPageScreen(
             text = NEW_ACCOUNT,
             buttonText = SIGNUP
         ) {
-            // TODO: Navigate to signup screen
+            navController.navigate(Screen.SignupScreen.route)
         }
 
         SmallMediumSpacer()

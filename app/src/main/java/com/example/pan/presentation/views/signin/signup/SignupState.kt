@@ -1,4 +1,4 @@
-package com.example.pan.presentation.views.signin.login
+package com.example.pan.presentation.views.signin.signup
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -9,12 +9,14 @@ import com.example.pan.domain.models.Response
 import com.example.pan.domain.models.Response.Loading
 import com.example.pan.domain.models.user.User
 
-class LoginState {
+class SignupState {
     // Variables
+    var name by mutableStateOf(NO_VALUE)
     var email by mutableStateOf(NO_VALUE)
     var password by mutableStateOf(NO_VALUE)
 
     // Errors
+    var nameError by mutableStateOf(InputError())
     var emailError by mutableStateOf(InputError())
     var passwordError by mutableStateOf(InputError())
 
@@ -22,6 +24,5 @@ class LoginState {
     var isHandlingResponse by mutableStateOf(false)
 
     // Responses
-    var logUserResponse by mutableStateOf<Response<Boolean>>(Loading)
-    var getUserResponse by mutableStateOf<Response<User>>(Loading)
+    var createUserResponse by mutableStateOf<Response<User>>(Loading)
 }
