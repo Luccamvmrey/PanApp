@@ -39,7 +39,7 @@ object AppModule {
         @Named("auth")
         auth: FirebaseAuth,
         @Named("users")
-        usersRef: CollectionReference
+        usersRef: CollectionReference,
     ) : UserRepository = UserRepositoryImpl(auth, usersRef)
 
 
