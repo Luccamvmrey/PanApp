@@ -98,7 +98,7 @@ class UserRepositoryImpl @Inject constructor(
         Failure(e)
     }
 
-    override fun logout() {
+    override fun signOut() {
         auth.signOut()
     }
 }
