@@ -1,8 +1,14 @@
 package com.example.pan.di
 
+import com.example.pan.core.Constants.LESSONS
 import com.example.pan.core.Constants.USERS
+import com.example.pan.data.repository.LessonRepositoryImpl
 import com.example.pan.data.repository.UserRepositoryImpl
+import com.example.pan.domain.repository.lesson.LessonRepository
 import com.example.pan.domain.repository.user.UserRepository
+import com.example.pan.domain.use_cases.lesson.LessonUseCases
+import com.example.pan.domain.use_cases.lesson.use_cases.GetLesson
+import com.example.pan.domain.use_cases.lesson.use_cases.GetLessonsList
 import com.example.pan.domain.use_cases.user.UserUseCases
 import com.example.pan.domain.use_cases.user.use_cases.CreateUser
 import com.example.pan.domain.use_cases.user.use_cases.GetLoggedUser
@@ -34,6 +40,11 @@ object AppModule {
     @Named("users")
     fun provideUsersRef() = Firebase.firestore.collection(USERS)
 
+    // Lessons
+    @Provides
+    @Named("lessons")
+    fun provideLessonsRef() = Firebase.firestore.collection(LESSONS)
+
     // Repository providers
     @Provides
     fun provideUserRepository(
@@ -42,6 +53,12 @@ object AppModule {
         @Named("users")
         usersRef: CollectionReference,
     ) : UserRepository = UserRepositoryImpl(auth, usersRef)
+
+    @Provides
+    fun provideLessonRepository(
+        @Named("lessons")
+        lessonsRef: CollectionReference
+    ) : LessonRepository = LessonRepositoryImpl(lessonsRef)
 
     // Use cases providers
     @Provides
@@ -54,5 +71,13 @@ object AppModule {
         getUsers = GetUsers(repo),
         sendPasswordRecoveryEmail = SendPasswordRecoveryEmail(repo),
         signOut = SignOut(repo)
+    )
+
+    @Provides
+    fun provideLessonUseCases(
+        repo: LessonRepository
+    ) = LessonUseCases(
+        getLesson = GetLesson(repo),
+        getLessonsList = GetLessonsList(repo)
     )
 }

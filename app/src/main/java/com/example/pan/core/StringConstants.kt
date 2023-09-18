@@ -18,10 +18,14 @@ object StringConstants {
     const val SEND_EMAIL = "Enviar E-mail"
     const val PASSWORD_RECOVERY_EMAIL_SENT = "E-mail de recuperação de senha enviado com sucesso!"
 
+    // MainPage
+    const val MY_LEARNING = "Meu Aprendizado"
+    const val MESSAGES = "Mensagens"
+    const val PROFILE = "Perfil"
+
     // Errors
     // User
     const val NULL_USER = "Usuário vazio."
-//    const val USER_NOT_FOUND = "Usuário não encontrado."
     const val EMAIL_NOT_FOUND = "Endereço de e-mail não encontrado."
     const val EMAIL_ALREADY_IN_USE = "Este endereço de e-mail já foi cadastrado."
     const val INVALID_EMAIL = "Endereço de e-mail inválido."
