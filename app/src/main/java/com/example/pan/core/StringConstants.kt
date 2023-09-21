@@ -23,6 +23,11 @@ object StringConstants {
     const val MESSAGES = "Mensagens"
     const val PROFILE = "Perfil"
 
+    // ProfileScreen
+    const val WELCOME_USER = "Bem-vindo, %s"
+    const val WATCHED_LESSONS = "Aulas assistidas"
+    const val POINTS = "Pontuação"
+
     // Errors
     // User
     const val NULL_USER = "Usuário vazio."

@@ -44,7 +44,7 @@ fun ContentHolder(
                 focusManager.clearFocus()
             }
             .background(
-                color = MaterialTheme.colorScheme.surface
+                color = MaterialTheme.colorScheme.background
             )
             .padding(
                 vertical = verticalPadding,

@@ -47,7 +47,7 @@ fun LoginScreen(
                 Text(
                     text = SIGNIN,
                     style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onBackground
                 )
             }
 
@@ -75,7 +75,7 @@ fun LoginScreen(
             Text(
                 text = FORGOT_PASSWORD,
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.clickable {
                     navController.navigate(Screen.PasswordRecoveryScreen.route)
                 }

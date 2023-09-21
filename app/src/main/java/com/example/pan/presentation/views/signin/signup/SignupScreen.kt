@@ -44,7 +44,7 @@ fun SignupScreen(
                 Text(
                     text = SIGNUP,
                     style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onBackground
                 )
             }
 

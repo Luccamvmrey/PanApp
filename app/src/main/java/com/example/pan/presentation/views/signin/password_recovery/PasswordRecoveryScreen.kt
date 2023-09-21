@@ -42,7 +42,7 @@ fun PasswordRecoveryScreen(
                 Text(
                     text = RECOVER_PASSWORD,
                     style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onBackground
                 )
             }
 

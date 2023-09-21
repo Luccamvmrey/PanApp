@@ -17,7 +17,7 @@ fun TextPlusButton(
     Text(
         text = text,
         style = MaterialTheme.typography.bodyMedium,
-        color = MaterialTheme.colorScheme.onSurface
+        color = MaterialTheme.colorScheme.onBackground
     )
     
     ExtraSmallSpacer()
