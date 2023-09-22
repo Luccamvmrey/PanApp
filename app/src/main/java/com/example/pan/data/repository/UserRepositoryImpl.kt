@@ -18,7 +18,7 @@ class UserRepositoryImpl @Inject constructor(
     @Named("auth")
     private val auth: FirebaseAuth,
     @Named("users")
-    private val usersRef: CollectionReference
+    private val usersRef: CollectionReference,
 ) : UserRepository {
 
     override suspend fun createUser(
@@ -98,7 +98,7 @@ class UserRepositoryImpl @Inject constructor(
         Failure(e)
     }
 
-    override fun logout() {
+    override fun signOut() {
         auth.signOut()
     }
 }

@@ -36,6 +36,7 @@ fun PanTextField(
                     color = MaterialTheme.colorScheme.error
                 )
             }
-        }
+        },
+        singleLine = true
     )
 }

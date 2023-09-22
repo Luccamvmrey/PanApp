@@ -77,6 +77,9 @@ dependencies {
     // Flow
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0-alpha02")
 
+    // Coil - Image from URL
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
     // Dagger - Hilt
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-compiler:2.48")
@@ -93,5 +96,8 @@ dependencies {
 
     // Firestore
     implementation("com.google.firebase:firebase-firestore-ktx")
+
+    // Google Play Services
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
 }
 

@@ -8,6 +8,9 @@ import com.example.pan.domain.models.Response.Loading
 import com.example.pan.domain.models.user.User
 
 class StartingPageState {
+    // Booleans
+    var isHandlingResponse by mutableStateOf(false)
+
     // Responses
     var getUserResponse by mutableStateOf<Response<User>>(Loading)
 }

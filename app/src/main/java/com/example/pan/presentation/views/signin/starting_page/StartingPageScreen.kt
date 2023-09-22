@@ -1,28 +1,25 @@
 package com.example.pan.presentation.views.signin.starting_page
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Divider
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.pan.core.StringConstants.ALREADY_HAS_ACCOUNT
-import com.example.pan.core.StringConstants.GOOGLE_SIGNIN
 import com.example.pan.core.StringConstants.NEW_ACCOUNT
 import com.example.pan.core.StringConstants.SIGNIN
 import com.example.pan.core.StringConstants.SIGNUP
 import com.example.pan.core.StringConstants.WELCOME
+import com.example.pan.core.delayNavigation
 import com.example.pan.domain.models.Response.Success
 import com.example.pan.presentation.navigation.Screen
 import com.example.pan.presentation.views.components.ContentHolder
 import com.example.pan.presentation.views.components.LargeSpacer
 import com.example.pan.presentation.views.components.MediumSpacer
-import com.example.pan.presentation.views.components.SmallMediumSpacer
 import com.example.pan.presentation.views.signin.starting_page.components.TextPlusButton
 
 @Composable
@@ -40,13 +37,18 @@ fun StartingPageScreen(
         val getUserResponse = state.getUserResponse
 
         if (getUserResponse is Success) {
-            val user = getUserResponse.data
-
-            // TODO: Navigate to main screen with userId as parameter
+            delayNavigation {
+                navController.navigate(Screen.MainPageScreen.route)
+            }
+        } else {
+            viewModel.setIsHandlingState(false)
         }
     }
 
-    ContentHolder {
+    ContentHolder (
+        verticalPadding = 154.dp,
+        verticalArrangement = Arrangement.Top
+    ) {
         Text(
             text = WELCOME,
             style = MaterialTheme.typography.titleLarge,
@@ -68,25 +70,26 @@ fun StartingPageScreen(
             text = NEW_ACCOUNT,
             buttonText = SIGNUP
         ) {
-            // TODO: Navigate to signup screen
+            navController.navigate(Screen.SignupScreen.route)
         }
 
-        SmallMediumSpacer()
-
-        Divider()
-
-        SmallMediumSpacer()
-
-        OutlinedButton(
-            onClick = {
-                // TODO: Sign in with Google
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(
-                text = GOOGLE_SIGNIN,
-                style = MaterialTheme.typography.bodyMedium,
-            )
-        }
+        // Maybe add this later?
+//        SmallMediumSpacer()
+//
+//        Divider()
+//
+//        SmallMediumSpacer()
+//
+//        OutlinedButton(
+//            onClick = {
+//                viewModel.googleSignIn()
+//            },
+//            modifier = Modifier.fillMaxWidth()
+//        ) {
+//            Text(
+//                text = GOOGLE_SIGNIN,
+//                style = MaterialTheme.typography.bodyMedium,
+//            )
+//        }
     }
 }
