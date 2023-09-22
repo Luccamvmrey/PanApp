@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -30,6 +32,7 @@ fun ContentHolder(
     val interactionSource = remember {
         MutableInteractionSource()
     }
+    val scrollState = rememberScrollState()
 
     Column(
         horizontalAlignment = horizontalAlignment,
@@ -50,6 +53,7 @@ fun ContentHolder(
                 vertical = verticalPadding,
                 horizontal = horizontalPadding
             )
+            .verticalScroll(scrollState)
     ) {
         content()
     }

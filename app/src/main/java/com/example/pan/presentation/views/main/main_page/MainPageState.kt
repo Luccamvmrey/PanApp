@@ -19,4 +19,7 @@ class MainPageState {
     // Responses
     var getLessonsListResponse by mutableStateOf<Response<List<Lesson>>>(Loading)
     var getUserResponse by mutableStateOf<Response<User>>(Loading)
+
+    // Profile
+    var isProfileInvisibleChecked by mutableStateOf(false)
 }

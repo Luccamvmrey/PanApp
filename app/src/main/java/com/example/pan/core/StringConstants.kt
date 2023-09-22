@@ -7,7 +7,7 @@ object StringConstants {
     const val WELCOME = "Bem-vindo ao Pan!"
     const val ALREADY_HAS_ACCOUNT = "Já possui uma conta?"
     const val NEW_ACCOUNT = "Novo no Pan?"
-    const val GOOGLE_SIGNIN = "Entrar com Google"
+//    const val GOOGLE_SIGNIN = "Entrar com Google"
     const val SIGNIN = "Entrar"
     const val SIGNUP = "Criar Conta"
     const val NAME = "Nome"
@@ -27,6 +27,8 @@ object StringConstants {
     const val WELCOME_USER = "Bem-vindo, %s"
     const val WATCHED_LESSONS = "Aulas assistidas"
     const val POINTS = "Pontuação"
+    const val LOGOUT = "Sair"
+    const val INVISIBLE_PROFILE = "Perfil invisível"
 
     // Errors
     // User

@@ -22,7 +22,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.pan.core.StringConstants.MESSAGES
@@ -30,7 +29,6 @@ import com.example.pan.core.StringConstants.MY_LEARNING
 import com.example.pan.core.StringConstants.PROFILE
 import com.example.pan.domain.models.lesson.Lesson
 import com.example.pan.domain.models.user.User
-import com.example.pan.presentation.views.components.ContentHolder
 import com.example.pan.presentation.views.components.ResponseHandler
 import com.example.pan.presentation.views.main.components.BottomNavigationBar
 import com.example.pan.presentation.views.main.components.BottomNavigationItem
@@ -87,7 +85,7 @@ fun MainPageScreen(
         key1 = state.isReloading
     ) {
 //        viewModel.getLessonsList()
-        viewModel.getUserFromServer()
+        viewModel.getUser()
     }
 
     Scaffold(
@@ -112,41 +110,40 @@ fun MainPageScreen(
         }
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {
-            ContentHolder(
-                verticalPadding =  0.dp,
-                horizontalPadding = 0.dp
-            ) {
-                when (selectedItemIndex) {
-                    0 -> { // Profile
-                        ResponseHandler(
-                            response = state.getUserResponse,
-                            onSuccessComposable = { data ->
-                                val user = data as User
-                                viewModel.setUser(user)
+            when (selectedItemIndex) {
+                0 -> { // Profile
+                    ResponseHandler(
+                        response = state.getUserResponse,
+                        onSuccessComposable = { data ->
+                            val user = data as User
+                            viewModel.setUser(user)
 
-                                ProfileScreen(
-                                    user = state.user!!,
-                                    onLogout = {
-                                        viewModel.signOut()
-                                        activity.finishAndRemoveTask()
-                                    }
-                                )
-                            }
-                        )
+                            ProfileScreen(
+                                user = state.user!!,
+                                isProfileInvisibleChecked = state.isProfileInvisibleChecked,
+                                onLogout = {
+                                    viewModel.signOut()
+                                    activity.finishAndRemoveTask()
+                                },
+                                onProfileInvisibleCheck = {
+                                    viewModel.setProfileInvisible(it)
+                                }
+                            )
+                        }
+                    )
 
-                    }
-                    1 -> { // My Learning
-                        ResponseHandler(
-                            response = state.getLessonsListResponse,
-                            onSuccess = { data ->
-                                val lessonsList = data as List<Lesson>
-                                viewModel.setLessonsList(lessonsList)
-                            }
-                        )
-                    }
-                    2 -> { // Messages
+                }
+                1 -> { // My Learning
+                    ResponseHandler(
+                        response = state.getLessonsListResponse,
+                        onSuccess = { data ->
+                            val lessonsList = data as List<Lesson>
+                            viewModel.setLessonsList(lessonsList)
+                        }
+                    )
+                }
+                2 -> { // Messages
 
-                    }
                 }
             }
         }
