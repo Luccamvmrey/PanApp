@@ -98,6 +98,14 @@ class UserRepositoryImpl @Inject constructor(
         Failure(e)
     }
 
+    override suspend fun updateUser(user: User): Response<Boolean> = try {
+        usersRef.document(user.userId!!).set(user).await()
+
+        Success(true)
+    } catch (e: Exception) {
+        Failure(e)
+    }
+
     override fun signOut() {
         auth.signOut()
     }
