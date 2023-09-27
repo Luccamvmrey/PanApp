@@ -14,5 +14,7 @@ interface UserRepository {
 
     suspend fun getUsers(): Response<List<User>>
 
+    suspend fun updateUser(user: User): Response<Boolean>
+
     fun signOut()
 }
