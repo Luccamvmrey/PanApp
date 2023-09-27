@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.pan.R
 import com.example.pan.core.StringConstants.INVISIBLE_PROFILE
@@ -38,7 +39,7 @@ fun ProfileScreen(
     user: User,
     isProfileInvisibleChecked: Boolean,
     onLogout: () -> Unit,
-    onProfileInvisibleCheck: (Boolean) -> Unit
+    onProfileInvisibleCheck: (Boolean) -> Unit,
 ) {
     val model = user.photoUrl ?: R.drawable.avatar
     val completedLessons = user.completedLessons?.size ?: 0

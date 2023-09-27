@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.pan.presentation.views.main.edit_profile.EditProfileScreen
 import com.example.pan.presentation.views.main.main_page.MainPageScreen
 import com.example.pan.presentation.views.signin.login.LoginScreen
 import com.example.pan.presentation.views.signin.password_recovery.PasswordRecoveryScreen
@@ -30,6 +31,8 @@ fun Navigation() {
         composable(route = Screen.MainPageScreen.route) {
             MainPageScreen(navController = navController)
         }
-
+        composable(route = Screen.EditProfileScreen.route) {
+            EditProfileScreen(navController = navController)
+        }
     }
 }

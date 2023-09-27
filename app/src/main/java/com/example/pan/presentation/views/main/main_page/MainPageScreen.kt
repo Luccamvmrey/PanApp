@@ -27,8 +27,10 @@ import androidx.navigation.NavController
 import com.example.pan.core.StringConstants.MESSAGES
 import com.example.pan.core.StringConstants.MY_LEARNING
 import com.example.pan.core.StringConstants.PROFILE
+import com.example.pan.core.delayNavigation
 import com.example.pan.domain.models.lesson.Lesson
 import com.example.pan.domain.models.user.User
+import com.example.pan.presentation.navigation.Screen
 import com.example.pan.presentation.views.components.ResponseHandler
 import com.example.pan.presentation.views.main.components.BottomNavigationBar
 import com.example.pan.presentation.views.main.components.BottomNavigationItem
@@ -71,7 +73,11 @@ fun MainPageScreen(
         title = PROFILE,
         actions = Icons.Outlined.Edit,
         onActionClick = {
-
+            delayNavigation {
+                navController.navigate(
+                    Screen.EditProfileScreen.route
+                )
+            }
         }
     )
     
@@ -131,7 +137,6 @@ fun MainPageScreen(
                             )
                         }
                     )
-
                 }
                 1 -> { // My Learning
                     ResponseHandler(

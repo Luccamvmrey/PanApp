@@ -29,6 +29,9 @@ object StringConstants {
     const val POINTS = "Pontuação"
     const val LOGOUT = "Sair"
     const val INVISIBLE_PROFILE = "Perfil invisível"
+    const val EDIT_PROFILE = "Editar Perfil"
+    const val SAVE = "Salvar"
+    const val CHANGE_PICTURE = "Clique aqui para mudar sua foto de perfil"
 
     // Errors
     // User
