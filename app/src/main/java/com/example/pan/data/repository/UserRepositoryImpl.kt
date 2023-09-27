@@ -1,5 +1,6 @@
 package com.example.pan.data.repository
 
+import android.graphics.Bitmap
 import com.example.pan.core.StringConstants.NULL_USER
 import com.example.pan.domain.models.Response
 import com.example.pan.domain.models.Response.Failure
@@ -8,7 +9,9 @@ import com.example.pan.domain.models.user.User
 import com.example.pan.domain.repository.user.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.tasks.await
+import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
@@ -19,6 +22,8 @@ class UserRepositoryImpl @Inject constructor(
     private val auth: FirebaseAuth,
     @Named("users")
     private val usersRef: CollectionReference,
+    @Named("storage")
+    private val storage: FirebaseStorage
 ) : UserRepository {
 
     override suspend fun createUser(
@@ -94,6 +99,24 @@ class UserRepositoryImpl @Inject constructor(
         }
 
         Success(users)
+    } catch (e: Exception) {
+        Failure(e)
+    }
+
+    override suspend fun uploadUserProfileImage(imageBitmap: Bitmap): Response<String> = try {
+        val storageRef = storage.reference
+        val timestamp = System.currentTimeMillis()
+        val obsImageRef = storageRef.child("profile_images/$timestamp")
+        val baos = ByteArrayOutputStream()
+
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos)
+
+        val fileInBytes = baos.toByteArray()
+        obsImageRef.putBytes(fileInBytes).await()
+
+        val downloadUri = obsImageRef.downloadUrl.await()
+
+        Success(downloadUri.toString())
     } catch (e: Exception) {
         Failure(e)
     }

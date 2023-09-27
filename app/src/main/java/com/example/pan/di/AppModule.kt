@@ -16,11 +16,15 @@ import com.example.pan.domain.use_cases.user.use_cases.GetUsers
 import com.example.pan.domain.use_cases.user.use_cases.LogUser
 import com.example.pan.domain.use_cases.user.use_cases.SendPasswordRecoveryEmail
 import com.example.pan.domain.use_cases.user.use_cases.SignOut
+import com.example.pan.domain.use_cases.user.use_cases.UpdateUser
+import com.example.pan.domain.use_cases.user.use_cases.UploadUserProfileImage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,6 +44,10 @@ object AppModule {
     @Named("users")
     fun provideUsersRef() = Firebase.firestore.collection(USERS)
 
+    @Provides
+    @Named("storage")
+    fun provideStorage() = Firebase.storage
+
     // Lessons
     @Provides
     @Named("lessons")
@@ -52,7 +60,9 @@ object AppModule {
         auth: FirebaseAuth,
         @Named("users")
         usersRef: CollectionReference,
-    ) : UserRepository = UserRepositoryImpl(auth, usersRef)
+        @Named("storage")
+        storage: FirebaseStorage
+    ) : UserRepository = UserRepositoryImpl(auth, usersRef, storage)
 
     @Provides
     fun provideLessonRepository(
@@ -70,6 +80,8 @@ object AppModule {
         getLoggedUser = GetLoggedUser(repo),
         getUsers = GetUsers(repo),
         sendPasswordRecoveryEmail = SendPasswordRecoveryEmail(repo),
+        uploadUserProfileImage = UploadUserProfileImage(repo),
+        updateUser = UpdateUser(repo),
         signOut = SignOut(repo)
     )
 

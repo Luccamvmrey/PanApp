@@ -32,6 +32,8 @@ object StringConstants {
     const val EDIT_PROFILE = "Editar Perfil"
     const val SAVE = "Salvar"
     const val CHANGE_PICTURE = "Clique aqui para mudar sua foto de perfil"
+    const val CHANGE_NAME = "Alterar nome"
+    const val CHANGE_EMAIL = "Alterar e-mail"
 
     // Errors
     // User
@@ -43,4 +45,6 @@ object StringConstants {
     const val PASSWORD_TOO_SHORT = "Senha deve ser pelo menos 6 caracteres."
     const val REQUIRED_FIELD = "Campo obrigatório."
     const val PASSWORD_RECOVERY_EMAIL_NOT_SENT = "Erro ao enviar e-mail de recuperação de senha."
+    const val NAME_MUST_NOT_BE_EMPTY = "Nome não pode ser vazio."
+    const val EMAIL_MUST_NOT_BE_EMPTY = "E-mail não pode ser vazio."
 }

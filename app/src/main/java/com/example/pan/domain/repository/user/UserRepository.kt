@@ -1,5 +1,6 @@
 package com.example.pan.domain.repository.user
 
+import android.graphics.Bitmap
 import com.example.pan.domain.models.Response
 import com.example.pan.domain.models.user.User
 
@@ -13,6 +14,8 @@ interface UserRepository {
     suspend fun sendPasswordRecoveryEmail(email: String): Response<Boolean>
 
     suspend fun getUsers(): Response<List<User>>
+
+    suspend fun uploadUserProfileImage(imageBitmap: Bitmap): Response<String>
 
     suspend fun updateUser(user: User): Response<Boolean>
 
