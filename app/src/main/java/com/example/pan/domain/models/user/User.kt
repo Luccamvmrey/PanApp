@@ -7,4 +7,5 @@ data class User(
     val completedLessons: List<String>? = emptyList(),
     val points: Int? = 0,
     val photoUrl: String? = null,
+    val isTeacher: Boolean? = false,
 )
