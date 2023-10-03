@@ -34,6 +34,14 @@ class SignupViewModel @Inject constructor(
         _state.value.password = password
     }
 
+    fun setIsTeacher(isTeacher: Boolean) {
+        _state.value.isTeacher = isTeacher
+    }
+
+    fun setIsExpanded(isExpanded: Boolean) {
+        _state.value.isDropdownMenuExpanded = isExpanded
+    }
+
     fun checkFields() : Boolean {
         _state.value.nameError = InputError()
         _state.value.emailError = InputError()

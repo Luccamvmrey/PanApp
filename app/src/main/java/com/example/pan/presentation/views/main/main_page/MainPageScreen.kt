@@ -28,7 +28,6 @@ import com.example.pan.core.StringConstants.MESSAGES
 import com.example.pan.core.StringConstants.MY_LEARNING
 import com.example.pan.core.StringConstants.PROFILE
 import com.example.pan.core.delayNavigation
-import com.example.pan.domain.models.lesson.Lesson
 import com.example.pan.domain.models.user.User
 import com.example.pan.presentation.navigation.Screen
 import com.example.pan.presentation.views.components.ResponseHandler
@@ -36,10 +35,10 @@ import com.example.pan.presentation.views.main.components.BottomNavigationBar
 import com.example.pan.presentation.views.main.components.BottomNavigationItem
 import com.example.pan.presentation.views.main.main_page.components.TopBar
 import com.example.pan.presentation.views.main.main_page.components.TopBarConfiguration
+import com.example.pan.presentation.views.main.main_page.components.my_learning_screen.MyLearningScreen
 import com.example.pan.presentation.views.main.main_page.components.profile_screen.ProfileScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Suppress("UNCHECKED_CAST")
 @Composable
 fun MainPageScreen(
     viewModel: MainPageViewModel = hiltViewModel(),
@@ -140,10 +139,14 @@ fun MainPageScreen(
                 }
                 1 -> { // My Learning
                     ResponseHandler(
-                        response = state.getLessonsListResponse,
-                        onSuccess = { data ->
-                            val lessonsList = data as List<Lesson>
-                            viewModel.setLessonsList(lessonsList)
+                        response = state.getUserResponse,
+                        onSuccessComposable = { data ->
+                            val user = data as User
+                            viewModel.setUser(user)
+
+                            MyLearningScreen(
+                                user = state.user!!
+                            )
                         }
                     )
                 }

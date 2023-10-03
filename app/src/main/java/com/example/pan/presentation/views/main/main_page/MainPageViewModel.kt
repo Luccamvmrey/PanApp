@@ -42,7 +42,7 @@ class MainPageViewModel @Inject constructor(
     }
 
     fun signOut() = viewModelScope.launch {
-        userUseCases.signOut
+        userUseCases.signOut()
     }
 
     fun setProfileInvisible(isProfileInvisible: Boolean) {

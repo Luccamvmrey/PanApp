@@ -21,6 +21,8 @@ class SignupState {
 
     // Boolean
     var isHandlingResponse by mutableStateOf(false)
+    var isTeacher by mutableStateOf(false)
+    var isDropdownMenuExpanded by mutableStateOf(false)
 
     // Responses
     var createUserResponse by mutableStateOf<Response<Boolean>>(Loading)

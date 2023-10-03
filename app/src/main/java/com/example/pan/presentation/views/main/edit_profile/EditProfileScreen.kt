@@ -244,7 +244,8 @@ fun EditProfileScreen(
                                 email = state.email,
                                 completedLessons = state.user!!.completedLessons,
                                 points = state.user!!.points,
-                                photoUrl = url
+                                photoUrl = url,
+                                isTeacher = state.user!!.isTeacher
                             )
 
                             viewModel.updateUser(user)

@@ -19,5 +19,5 @@ interface UserRepository {
 
     suspend fun updateUser(user: User): Response<Boolean>
 
-    fun signOut()
+    suspend fun signOut(): Response<Boolean>
 }

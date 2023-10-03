@@ -129,7 +129,10 @@ class UserRepositoryImpl @Inject constructor(
         Failure(e)
     }
 
-    override fun signOut() {
+    override suspend fun signOut(): Response<Boolean> = try {
         auth.signOut()
+        Success(true)
+    } catch (e: Exception) {
+        Failure(e)
     }
 }

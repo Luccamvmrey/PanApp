@@ -13,6 +13,9 @@ class MainPageState {
     var lessonsList by mutableStateOf<List<Lesson>>(emptyList())
     var user by mutableStateOf<User?>(null)
 
+    // Variables
+    var selectedClass by mutableStateOf(null)
+
     // Boolean
     var isReloading by mutableStateOf(false)
 

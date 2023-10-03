@@ -17,6 +17,9 @@ object StringConstants {
     const val RECOVER_PASSWORD = "Recuperar Senha"
     const val SEND_EMAIL = "Enviar E-mail"
     const val PASSWORD_RECOVERY_EMAIL_SENT = "E-mail de recuperação de senha enviado com sucesso!"
+    const val YES = "Sim"
+    const val NO = "Não"
+    const val ARE_YOU_A_TEACHER = "Você é professor?"
 
     // MainPage
     const val MY_LEARNING = "Meu Aprendizado"

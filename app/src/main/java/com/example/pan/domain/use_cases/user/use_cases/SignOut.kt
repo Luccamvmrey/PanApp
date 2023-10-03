@@ -5,5 +5,5 @@ import com.example.pan.domain.repository.user.UserRepository
 class SignOut(
     private val repo: UserRepository
 ) {
-    operator fun invoke() = repo.signOut()
+    suspend operator fun invoke() = repo.signOut()
 }
