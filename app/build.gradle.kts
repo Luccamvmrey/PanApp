@@ -72,7 +72,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     // Material Icons
-    implementation("androidx.compose.material:material-icons-extended:1.5.1")
+    implementation("androidx.compose.material:material-icons-extended:1.5.2")
 
     // Flow
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0-alpha02")

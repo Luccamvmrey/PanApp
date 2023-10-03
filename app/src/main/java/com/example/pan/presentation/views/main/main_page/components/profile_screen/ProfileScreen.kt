@@ -1,5 +1,6 @@
 package com.example.pan.presentation.views.main.main_page.components.profile_screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -19,8 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
 import com.example.pan.R
 import com.example.pan.core.StringConstants.INVISIBLE_PROFILE
 import com.example.pan.core.StringConstants.LOGOUT
@@ -43,14 +43,23 @@ fun ProfileScreen(
 ) {
     val model = user.photoUrl ?: R.drawable.avatar
     val completedLessons = user.completedLessons?.size ?: 0
+    val painter = rememberAsyncImagePainter(model = model)
 
     ContentHolder(
         verticalArrangement = Arrangement.Top,
         verticalPadding = MaterialTheme.spacing.medium,
         horizontalPadding = MaterialTheme.spacing.large
     ) {
-        AsyncImage(
-            model = model,
+//        AsyncImage(
+//            model = model,
+//            contentDescription = null,
+//            modifier = Modifier
+//                .size(152.dp)
+//                .clip(CircleShape),
+//            contentScale = ContentScale.Crop
+//        )
+        Image(
+            painter = painter,
             contentDescription = null,
             modifier = Modifier
                 .size(152.dp)
