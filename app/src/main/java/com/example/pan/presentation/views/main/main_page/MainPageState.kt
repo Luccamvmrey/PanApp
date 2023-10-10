@@ -14,7 +14,7 @@ class MainPageState {
     var user by mutableStateOf<User?>(null)
 
     // Variables
-    var selectedClass by mutableStateOf(null)
+    var selectedClassId by mutableStateOf("")
 
     // Boolean
     var isReloading by mutableStateOf(false)

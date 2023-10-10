@@ -1,12 +1,20 @@
 package com.example.pan.di
 
+import com.example.pan.core.Constants.CLASSES
 import com.example.pan.core.Constants.LESSONS
 import com.example.pan.core.Constants.USERS
+import com.example.pan.data.repository.ClassesRepositoryImpl
 import com.example.pan.data.repository.LessonRepositoryImpl
 import com.example.pan.data.repository.UserRepositoryImpl
+import com.example.pan.domain.repository.classes.ClassesRepository
 import com.example.pan.domain.repository.lesson.LessonRepository
 import com.example.pan.domain.repository.user.UserRepository
+import com.example.pan.domain.use_cases.classes.PanClassUseCases
+import com.example.pan.domain.use_cases.classes.use_classes.AddStudentToClass
+import com.example.pan.domain.use_cases.classes.use_classes.CreateClass
+import com.example.pan.domain.use_cases.classes.use_classes.GetClassesList
 import com.example.pan.domain.use_cases.lesson.LessonUseCases
+import com.example.pan.domain.use_cases.lesson.use_cases.AddLesson
 import com.example.pan.domain.use_cases.lesson.use_cases.GetLesson
 import com.example.pan.domain.use_cases.lesson.use_cases.GetLessonsList
 import com.example.pan.domain.use_cases.user.UserUseCases
@@ -53,6 +61,11 @@ object AppModule {
     @Named("lessons")
     fun provideLessonsRef() = Firebase.firestore.collection(LESSONS)
 
+    // Classes
+    @Provides
+    @Named("classes")
+    fun provideClassesRef() = Firebase.firestore.collection(CLASSES)
+
     // Repository providers
     @Provides
     fun provideUserRepository(
@@ -67,8 +80,18 @@ object AppModule {
     @Provides
     fun provideLessonRepository(
         @Named("lessons")
-        lessonsRef: CollectionReference
-    ) : LessonRepository = LessonRepositoryImpl(lessonsRef)
+        lessonsRef: CollectionReference,
+        @Named("classes")
+        classesRef: CollectionReference
+    ) : LessonRepository = LessonRepositoryImpl(lessonsRef, classesRef)
+
+    @Provides
+    fun provideClassesRepository(
+        @Named("classes")
+        classesRef: CollectionReference,
+        @Named("users")
+        usersRef: CollectionReference
+    ) : ClassesRepository = ClassesRepositoryImpl(classesRef, usersRef)
 
     // Use cases providers
     @Provides
@@ -90,6 +113,16 @@ object AppModule {
         repo: LessonRepository
     ) = LessonUseCases(
         getLesson = GetLesson(repo),
-        getLessonsList = GetLessonsList(repo)
+        getLessonsList = GetLessonsList(repo),
+        addLesson = AddLesson(repo)
+    )
+
+    @Provides
+    fun providePanClassUseCases(
+        repo: ClassesRepository
+    ) = PanClassUseCases(
+        createClass = CreateClass(repo),
+        getClassesList = GetClassesList(repo),
+        addStudentToClass = AddStudentToClass(repo)
     )
 }

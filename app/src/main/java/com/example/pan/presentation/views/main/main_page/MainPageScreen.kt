@@ -5,10 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Chat
 import androidx.compose.material.icons.filled.LocalLibrary
 import androidx.compose.material.icons.outlined.AccountCircle
-import androidx.compose.material.icons.outlined.Chat
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.LocalLibrary
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.pan.core.StringConstants.MESSAGES
 import com.example.pan.core.StringConstants.MY_LEARNING
 import com.example.pan.core.StringConstants.PROFILE
 import com.example.pan.core.delayNavigation
@@ -60,12 +57,12 @@ fun MainPageScreen(
             unselectedItem = Icons.Outlined.LocalLibrary,
             hasNews = false
         ),
-        BottomNavigationItem(
-            title = MESSAGES,
-            selectedItem = Icons.Filled.Chat,
-            unselectedItem = Icons.Outlined.Chat,
-            hasNews = false,
-        )
+//        BottomNavigationItem(
+//            title = MESSAGES,
+//            selectedItem = Icons.Filled.Chat,
+//            unselectedItem = Icons.Outlined.Chat,
+//            hasNews = false,
+//        )
     )
 
     val profileScreenTopBar = TopBarConfiguration(
@@ -150,9 +147,9 @@ fun MainPageScreen(
                         }
                     )
                 }
-                2 -> { // Messages
-
-                }
+//                2 -> { // Messages
+//
+//                }
             }
         }
     }

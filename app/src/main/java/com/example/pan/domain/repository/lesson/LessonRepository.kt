@@ -7,4 +7,6 @@ interface LessonRepository {
     suspend fun getLesson(lessonId: String): Response<Lesson>
 
     suspend fun getLessonsList(): Response<List<Lesson>>
+
+    suspend fun addLesson(lesson: Lesson, classId: String)
 }
