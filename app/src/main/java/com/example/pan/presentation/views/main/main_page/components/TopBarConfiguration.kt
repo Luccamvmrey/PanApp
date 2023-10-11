@@ -4,6 +4,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 data class TopBarConfiguration(
     val title: String,
-    val actions: ImageVector,
-    val onActionClick: () -> Unit
+    val actions: ImageVector?,
+    val onActionClick: (() -> Unit)?
 )

@@ -22,9 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.pan.core.StringConstants.CLASSES_LESSONS
 import com.example.pan.core.StringConstants.MY_LEARNING
 import com.example.pan.core.StringConstants.PROFILE
 import com.example.pan.core.delayNavigation
+import com.example.pan.domain.models.classes.PanClass
 import com.example.pan.domain.models.user.User
 import com.example.pan.presentation.navigation.Screen
 import com.example.pan.presentation.views.components.ResponseHandler
@@ -36,6 +38,7 @@ import com.example.pan.presentation.views.main.main_page.components.my_learning_
 import com.example.pan.presentation.views.main.main_page.components.profile_screen.ProfileScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
+@Suppress("UNCHECKED_CAST")
 @Composable
 fun MainPageScreen(
     viewModel: MainPageViewModel = hiltViewModel(),
@@ -56,13 +59,7 @@ fun MainPageScreen(
             selectedItem = Icons.Filled.LocalLibrary,
             unselectedItem = Icons.Outlined.LocalLibrary,
             hasNews = false
-        ),
-//        BottomNavigationItem(
-//            title = MESSAGES,
-//            selectedItem = Icons.Filled.Chat,
-//            unselectedItem = Icons.Outlined.Chat,
-//            hasNews = false,
-//        )
+        )
     )
 
     val profileScreenTopBar = TopBarConfiguration(
@@ -75,6 +72,11 @@ fun MainPageScreen(
                 )
             }
         }
+    )
+    val myLearningScreenTopBar = TopBarConfiguration(
+        title = CLASSES_LESSONS,
+        actions = null,
+        onActionClick = null
     )
     
     var selectedItemIndex by rememberSaveable {
@@ -98,7 +100,11 @@ fun MainPageScreen(
                         configuration = profileScreenTopBar
                     )
                 }
-                else -> {}
+                1 -> {
+                    TopBar(
+                        configuration = myLearningScreenTopBar
+                    )
+                }
             }
         },
         bottomBar = {
@@ -137,19 +143,25 @@ fun MainPageScreen(
                 1 -> { // My Learning
                     ResponseHandler(
                         response = state.getUserResponse,
-                        onSuccessComposable = { data ->
-                            val user = data as User
-                            viewModel.setUser(user)
+                        onSuccessComposable = { user ->
+                            viewModel.setUser(user as User)
+                            viewModel.getClassesListFromIds()
 
-                            MyLearningScreen(
-                                user = state.user!!
+                            ResponseHandler(
+                                response = state.getClassesListResponse,
+                                onSuccessComposable = { panClasses ->
+                                    viewModel.setClassesList(panClasses as List<PanClass>)
+
+                                    MyLearningScreen(
+                                        user = state.user!!,
+                                        selectedClassId = state.selectedClassId,
+                                        classesList = state.classesList,
+                                    )
+                                }
                             )
                         }
                     )
                 }
-//                2 -> { // Messages
-//
-//                }
             }
         }
     }

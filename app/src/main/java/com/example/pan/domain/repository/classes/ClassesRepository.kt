@@ -8,5 +8,7 @@ interface ClassesRepository {
 
     suspend fun getClassesList(): Response<List<PanClass>>
 
+    suspend fun getClassesListFromIds(classIds: List<String>): Response<List<PanClass>>
+
     suspend fun addStudentToClass(studentId: String, classId: String): Response<Boolean>
 }

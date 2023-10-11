@@ -23,6 +23,7 @@ object StringConstants {
 
     // MainPage
     const val MY_LEARNING = "Meu Aprendizado"
+    const val CLASSES_LESSONS = "Aulas e Turmas"
     const val MESSAGES = "Mensagens"
     const val PROFILE = "Perfil"
 

@@ -47,6 +47,18 @@ class ClassesRepositoryImpl @Inject constructor(
         Failure(e)
     }
 
+    override suspend fun getClassesListFromIds(classIds: List<String>): Response<List<PanClass>> = try {
+        val classes = classesRef
+            .whereIn("classId", classIds)
+            .get()
+            .await()
+            .toObjects(PanClass::class.java)
+
+        Success(classes)
+    } catch (e: Exception) {
+        Failure(e)
+    }
+
     override suspend fun addStudentToClass(studentId: String, classId: String) = try {
         val panClassRef = classesRef
             .document(classId)

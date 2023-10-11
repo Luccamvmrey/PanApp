@@ -22,13 +22,15 @@ fun TopBar(
         },
         actions = {
             Box(modifier = Modifier.padding(end = 16.dp)) {
-                Icon(
-                    imageVector = configuration.actions,
-                    contentDescription = null,
-                    modifier = Modifier.clickable {
-                        configuration.onActionClick()
-                    }
-                )
+                configuration.actions?.let {
+                    Icon(
+                        imageVector = configuration.actions,
+                        contentDescription = null,
+                        modifier = Modifier.clickable {
+                            configuration.onActionClick?.invoke()
+                        }
+                    )
+                }
             }
         }
     )

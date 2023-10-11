@@ -5,12 +5,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.example.pan.domain.models.Response
 import com.example.pan.domain.models.Response.Loading
+import com.example.pan.domain.models.classes.PanClass
 import com.example.pan.domain.models.lesson.Lesson
 import com.example.pan.domain.models.user.User
 
 class MainPageState {
     // Data
     var lessonsList by mutableStateOf<List<Lesson>>(emptyList())
+    var classesList by mutableStateOf<List<PanClass>>(emptyList())
     var user by mutableStateOf<User?>(null)
 
     // Variables
@@ -21,6 +23,7 @@ class MainPageState {
 
     // Responses
     var getLessonsListResponse by mutableStateOf<Response<List<Lesson>>>(Loading)
+    var getClassesListResponse by mutableStateOf<Response<List<PanClass>>>(Loading)
     var getUserResponse by mutableStateOf<Response<User>>(Loading)
 
     // Profile

@@ -4,7 +4,6 @@ import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
@@ -237,15 +236,10 @@ fun EditProfileScreen(
                         onSuccessComposable = { data ->
                             val url = data as String
 
-                            Log.d("URL", url)
-                            val user = User(
-                                userId = state.user!!.userId,
+                            val user = state.user!!.copy(
                                 name = state.name,
                                 email = state.email,
-                                completedLessons = state.user!!.completedLessons,
-                                points = state.user!!.points,
-                                photoUrl = url,
-                                isTeacher = state.user!!.isTeacher
+                                photoUrl = url
                             )
 
                             viewModel.updateUser(user)

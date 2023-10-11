@@ -13,6 +13,7 @@ import com.example.pan.domain.use_cases.classes.PanClassUseCases
 import com.example.pan.domain.use_cases.classes.use_classes.AddStudentToClass
 import com.example.pan.domain.use_cases.classes.use_classes.CreateClass
 import com.example.pan.domain.use_cases.classes.use_classes.GetClassesList
+import com.example.pan.domain.use_cases.classes.use_classes.GetClassesListFromIds
 import com.example.pan.domain.use_cases.lesson.LessonUseCases
 import com.example.pan.domain.use_cases.lesson.use_cases.AddLesson
 import com.example.pan.domain.use_cases.lesson.use_cases.GetLesson
@@ -123,6 +124,7 @@ object AppModule {
     ) = PanClassUseCases(
         createClass = CreateClass(repo),
         getClassesList = GetClassesList(repo),
-        addStudentToClass = AddStudentToClass(repo)
+        addStudentToClass = AddStudentToClass(repo),
+        getClassesListFromIds = GetClassesListFromIds(repo)
     )
 }
