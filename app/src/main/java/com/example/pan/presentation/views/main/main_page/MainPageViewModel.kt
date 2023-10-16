@@ -1,8 +1,8 @@
 package com.example.pan.presentation.views.main.main_page
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.pan.core.createClassId
 import com.example.pan.domain.models.classes.PanClass
 import com.example.pan.domain.models.lesson.Lesson
 import com.example.pan.domain.models.user.User
@@ -28,6 +28,8 @@ class MainPageViewModel @Inject constructor(
 //        getLessonsList()
     }
 
+    // Lessons
+
 //    fun getLessonsList() = viewModelScope.launch {
 //        _state.value.getLessonsListResponse = lessonUseCases.getLessonsList()
 //    }
@@ -35,6 +37,7 @@ class MainPageViewModel @Inject constructor(
     fun setLessonsList(lessonsList: List<Lesson>) {
         _state.value.lessonsList = lessonsList
     }
+     // User
 
     fun getUser() = viewModelScope.launch {
         _state.value.getUserResponse = userUseCases.getLoggedUser()
@@ -44,9 +47,53 @@ class MainPageViewModel @Inject constructor(
         _state.value.user = user
     }
 
+    fun signOut() = viewModelScope.launch {
+        userUseCases.signOut()
+    }
+
+    fun setProfileInvisible(isProfileInvisible: Boolean) {
+        _state.value.isProfileInvisibleChecked = isProfileInvisible
+    }
+
+    // PanClasses
+
+    fun createClass(className: String): PanClass {
+        val classId = createClassId()
+
+        return PanClass(
+            className = className,
+            teachers = listOf(
+                _state.value.user!!
+            ),
+            classId = classId
+        )
+    }
+
+    fun addPanClassToFirebase(panClass: PanClass) = viewModelScope.launch {
+        _state.value.createClassResponse = panClassUseCases.createClass(panClass)
+    }
+
+    fun addTeacherToClass(classId: String) = viewModelScope.launch {
+        val teacherId = _state.value.user?.userId
+
+        _state.value.addTeacherResponse = panClassUseCases.addTeacherToClass(
+            teacherId = teacherId!!,
+            classId = classId
+        )
+    }
+
+    fun addStudentToClass(classId: String) = viewModelScope.launch {
+        val studentId = _state.value.user?.userId
+
+        _state.value.addStudentResponse = panClassUseCases.addStudentToClass(
+            studentId = studentId!!,
+            classId = classId
+        )
+    }
+
     fun getClassesListFromIds() = viewModelScope.launch {
         _state.value.getClassesListResponse = panClassUseCases.getClassesListFromIds(
-             _state.value.user?.panClassesId ?: emptyList()
+            _state.value.user?.panClassesId ?: emptyList()
         )
     }
 
@@ -54,12 +101,7 @@ class MainPageViewModel @Inject constructor(
         _state.value.classesList = panClasses
     }
 
-    fun signOut() = viewModelScope.launch {
-        userUseCases.signOut()
-    }
-
-    fun setProfileInvisible(isProfileInvisible: Boolean) {
-        _state.value.isProfileInvisibleChecked = isProfileInvisible
-        Log.d("MainPageViewModel", "setProfileInvisible: $isProfileInvisible")
+    fun setSelectedClassId(classId: String) {
+        _state.value.selectedClassId = classId
     }
 }

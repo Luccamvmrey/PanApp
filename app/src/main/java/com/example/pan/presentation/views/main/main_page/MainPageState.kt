@@ -22,9 +22,14 @@ class MainPageState {
     var isReloading by mutableStateOf(false)
 
     // Responses
+    var getUserResponse by mutableStateOf<Response<User>>(Loading)
     var getLessonsListResponse by mutableStateOf<Response<List<Lesson>>>(Loading)
     var getClassesListResponse by mutableStateOf<Response<List<PanClass>>>(Loading)
-    var getUserResponse by mutableStateOf<Response<User>>(Loading)
+
+    var createClassResponse by mutableStateOf<Response<Boolean>>(Loading)
+    var addTeacherResponse by mutableStateOf<Response<Boolean>>(Loading)
+    var addStudentResponse by mutableStateOf<Response<Boolean>>(Loading)
+
 
     // Profile
     var isProfileInvisibleChecked by mutableStateOf(false)

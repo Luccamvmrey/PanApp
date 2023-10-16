@@ -11,11 +11,14 @@ import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.LocalLibrary
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -34,8 +37,9 @@ import com.example.pan.presentation.views.main.components.BottomNavigationBar
 import com.example.pan.presentation.views.main.components.BottomNavigationItem
 import com.example.pan.presentation.views.main.main_page.components.TopBar
 import com.example.pan.presentation.views.main.main_page.components.TopBarConfiguration
-import com.example.pan.presentation.views.main.main_page.components.my_learning_screen.MyLearningScreen
-import com.example.pan.presentation.views.main.main_page.components.profile_screen.ProfileScreen
+import com.example.pan.presentation.views.main.my_learning_screen.MyLearningScreen
+import com.example.pan.presentation.views.main.my_learning_screen.components.NewClassDialog
+import com.example.pan.presentation.views.main.profile_screen.ProfileScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Suppress("UNCHECKED_CAST")
@@ -81,6 +85,9 @@ fun MainPageScreen(
     
     var selectedItemIndex by rememberSaveable {
         mutableIntStateOf(1)
+    }
+    var openDialog by remember {
+        mutableStateOf(false)
     }
 
     //Only after adding some lessons
@@ -156,7 +163,24 @@ fun MainPageScreen(
                                         user = state.user!!,
                                         selectedClassId = state.selectedClassId,
                                         classesList = state.classesList,
+                                        onSelectClass = {
+                                            viewModel.setSelectedClassId(it)
+                                        },
+                                        onNewClass = {
+                                            openDialog = true
+                                        }
                                     )
+                                    if (openDialog) {
+                                        NewClassDialog(
+                                            isTeacher = user.isTeacher!!,
+                                            viewModel = viewModel,
+                                            onDismiss = { openDialog = false },
+                                            onConfirm = { openDialog = false }
+                                        )
+                                    }
+                                },
+                                onFailureComposable = { error ->
+                                    Text(text = error?.message?: "Something went wrong :/")
                                 }
                             )
                         }

@@ -1,4 +1,4 @@
-package com.example.pan.presentation.views.main.main_page.components.profile_screen
+package com.example.pan.presentation.views.main.profile_screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -33,6 +33,7 @@ import com.example.pan.presentation.views.components.ContentHolder
 import com.example.pan.presentation.views.components.MediumSpacer
 import com.example.pan.presentation.views.components.SmallMediumSpacer
 import com.example.pan.presentation.views.components.SmallSpacer
+import com.example.pan.presentation.views.main.profile_screen.components.ProfileScreenCard
 
 @Composable
 fun ProfileScreen(

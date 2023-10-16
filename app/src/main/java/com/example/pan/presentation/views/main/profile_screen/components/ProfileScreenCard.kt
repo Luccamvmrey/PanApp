@@ -1,4 +1,4 @@
-package com.example.pan.presentation.views.main.main_page.components.profile_screen
+package com.example.pan.presentation.views.main.profile_screen.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
