@@ -8,6 +8,7 @@ class CreateUser(
     suspend operator fun invoke(
         name: String,
         email: String,
-        password: String
-    ) = repo.createUser(name, email, password)
+        password: String,
+        isTeacher: Boolean
+    ) = repo.createUser(name, email, password, isTeacher)
 }

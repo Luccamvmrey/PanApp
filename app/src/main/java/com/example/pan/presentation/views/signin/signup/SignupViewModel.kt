@@ -122,7 +122,8 @@ class SignupViewModel @Inject constructor(
         _state.value.createUserResponse = userUseCases.createUser(
             name = _state.value.name,
             email = _state.value.email,
-            password = _state.value.password
+            password = _state.value.password,
+            isTeacher = _state.value.isTeacher
         )
     }
 }

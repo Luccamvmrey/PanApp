@@ -26,8 +26,9 @@ class MainPageState {
     var getLessonsListResponse by mutableStateOf<Response<List<Lesson>>>(Loading)
     var getClassesListResponse by mutableStateOf<Response<List<PanClass>>>(Loading)
 
+    var updateUserResponse by mutableStateOf<Response<Boolean>>(Loading)
+
     var createClassResponse by mutableStateOf<Response<Boolean>>(Loading)
-    var addTeacherResponse by mutableStateOf<Response<Boolean>>(Loading)
     var addStudentResponse by mutableStateOf<Response<Boolean>>(Loading)
 
 

@@ -93,10 +93,12 @@ fun MainPageScreen(
     //Only after adding some lessons
 
     LaunchedEffect(
-        key1 = state.isReloading
+        key1 = state.isReloading,
+        key2 = state.user
     ) {
 //        viewModel.getLessonsList()
         viewModel.getUser()
+        viewModel.getClassesListFromIds()
     }
 
     Scaffold(
@@ -172,10 +174,9 @@ fun MainPageScreen(
                                     )
                                     if (openDialog) {
                                         NewClassDialog(
-                                            isTeacher = user.isTeacher!!,
+                                            isTeacher = user.teacher!!,
                                             viewModel = viewModel,
-                                            onDismiss = { openDialog = false },
-                                            onConfirm = { openDialog = false }
+                                            onDismiss = { openDialog = false }
                                         )
                                     }
                                 },

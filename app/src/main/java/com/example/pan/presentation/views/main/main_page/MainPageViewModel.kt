@@ -73,13 +73,14 @@ class MainPageViewModel @Inject constructor(
         _state.value.createClassResponse = panClassUseCases.createClass(panClass)
     }
 
-    fun addTeacherToClass(classId: String) = viewModelScope.launch {
-        val teacherId = _state.value.user?.userId
+    fun addClassIdToUser(classId: String) = viewModelScope.launch {
+        val user = _state.value.user!!
+        val panClassesId = user.panClassesId as ArrayList
+        panClassesId.add(classId)
 
-        _state.value.addTeacherResponse = panClassUseCases.addTeacherToClass(
-            teacherId = teacherId!!,
-            classId = classId
-        )
+        user.panClassesId = panClassesId
+
+        _state.value.updateUserResponse = userUseCases.updateUser(user)
     }
 
     fun addStudentToClass(classId: String) = viewModelScope.launch {

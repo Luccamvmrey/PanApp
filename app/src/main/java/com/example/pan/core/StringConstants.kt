@@ -28,7 +28,11 @@ object StringConstants {
     const val PROFILE = "Perfil"
     const val NEW_CLASS = "Nova Turma"
     const val SELECT_A_CLASS = "Selecione uma turma para ver suas aulas!"
-    const val NEW_CLASS_TITLE = "Crie uma turma nova."
+    const val CLASS_NAME = "Nome da turma"
+    const val YOUR_CLASS_ID = "Este é o ID da sua turma. Compartilhe com seus alunos!"
+    const val CREATE_CLASS = "Criar Turma"
+    const val CLASS_NAME_MUST_NOT_BE_EMPTY = "Nome da turma não pode ser vazio."
+    const val DONE = "Feito!"
 
     // ProfileScreen
     const val WELCOME_USER = "Bem-vindo, %s"

@@ -29,7 +29,8 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun createUser(
         name: String,
         email: String,
-        password: String
+        password: String,
+        isTeacher: Boolean
     ): Response<Boolean> = try {
         auth.createUserWithEmailAndPassword(
             email,
@@ -41,7 +42,8 @@ class UserRepositoryImpl @Inject constructor(
         val user = User(
             userId = id,
             name = name,
-            email = email
+            email = email,
+            teacher = isTeacher
         )
         usersRef.document(id).set(user).await()
 

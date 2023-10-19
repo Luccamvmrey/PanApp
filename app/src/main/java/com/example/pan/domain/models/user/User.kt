@@ -7,6 +7,6 @@ data class User(
     val completedLessons: List<Map<String, String>>? = emptyList(),
     val points: Int? = 0,
     val photoUrl: String? = null,
-    val isTeacher: Boolean? = false,
-    val panClassesId: List<String>? = emptyList(),
+    val teacher: Boolean? = false,
+    var panClassesId: List<String>? = emptyList(),
 )
