@@ -24,5 +24,6 @@ fun ResponseHandler(
             onFailure?.invoke(response.e)
             onFailureComposable?.invoke(response.e)
         }
+        else -> {}
     }
 }
