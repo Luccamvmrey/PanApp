@@ -3,7 +3,9 @@ package com.example.pan.presentation.views.main.my_learning_screen.components
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -49,4 +51,5 @@ fun ClassTag(
                 onClick()
             }
     )
+    Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraSmall))
 }

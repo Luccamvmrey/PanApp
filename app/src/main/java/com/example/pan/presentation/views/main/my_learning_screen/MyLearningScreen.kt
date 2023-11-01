@@ -1,67 +1,50 @@
 package com.example.pan.presentation.views.main.my_learning_screen
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import com.example.pan.core.StringConstants.SELECT_A_CLASS
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import com.example.pan.core.StringConstants.NO_VALUE
 import com.example.pan.domain.models.classes.PanClass
 import com.example.pan.domain.models.user.User
 import com.example.pan.presentation.ui.theme.spacing
 import com.example.pan.presentation.views.components.ContentHolder
-import com.example.pan.presentation.views.components.SmallSpacer
-import com.example.pan.presentation.views.main.my_learning_screen.components.ClassesLazyRow
+import com.example.pan.presentation.views.main.my_learning_screen.components.ClassesCarousel
+import com.example.pan.presentation.views.main.my_learning_screen.components.MyLearningContent
 
 @Composable
 fun MyLearningScreen(
     user: User,
-    selectedClassId: String,
     classesList: List<PanClass>,
-    onSelectClass: (String) -> Unit,
-    onNewClass: () -> Unit
 ) {
+    var selectedClassId by rememberSaveable {
+        mutableStateOf(NO_VALUE)
+    }
+    var openDialog by remember {
+        mutableStateOf(false)
+    }
+
     ContentHolder(
         verticalArrangement = Arrangement.Top,
         verticalPadding = MaterialTheme.spacing.small,
         horizontalPadding = MaterialTheme.spacing.small,
     ) {
-        ClassesLazyRow(
+        ClassesCarousel(
             classesList = classesList,
             selectedClassId = selectedClassId,
             onClassClick = {
-                onSelectClass(it)
+                selectedClassId = it
             },
             onCreateNew = {
-                onNewClass()
+                openDialog = true
             }
         )
-        SmallSpacer()
-        Divider()
-        SmallSpacer()
 
-        if (selectedClassId.isEmpty()) {
-            SmallSpacer()
-
-            Row (
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(MaterialTheme.spacing.medium)
-            ) {
-                Text(
-                    text = SELECT_A_CLASS,
-                    style = MaterialTheme.typography.titleSmall,
-                    color = MaterialTheme.colorScheme.outline
-                )
-            }
-        } else {
-            //TODO
-        }
+        MyLearningContent(selectedClassId = selectedClassId)
     }
 }
 

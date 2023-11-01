@@ -8,5 +8,5 @@ data class PanClass(
     val className: String? = null,
     val teachers: List<User> = emptyList(),
     val students: List<User> = emptyList(),
-    val lessonsList: List<Lesson> = emptyList(),
+    val lessonsList: List<String> = emptyList(),
 )

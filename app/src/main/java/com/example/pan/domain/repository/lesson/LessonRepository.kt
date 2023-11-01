@@ -3,10 +3,13 @@ package com.example.pan.domain.repository.lesson
 import com.example.pan.domain.models.Response
 import com.example.pan.domain.models.lesson.Lesson
 
-interface LessonRepository {
-    suspend fun getLesson(lessonId: String): Response<Lesson>
+typealias LessonsList = Response<List<Lesson>>
+typealias LessonResponse = Response<Lesson>
 
-    suspend fun getLessonsList(): Response<List<Lesson>>
+interface LessonRepository {
+    suspend fun getLesson(lessonId: String): LessonResponse
+
+    suspend fun getLessonsList(classId: String): LessonsList
 
     suspend fun addLesson(lesson: Lesson, classId: String)
 }

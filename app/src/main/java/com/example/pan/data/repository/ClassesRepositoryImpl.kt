@@ -1,10 +1,10 @@
 package com.example.pan.data.repository
 
-import com.example.pan.domain.models.Response
 import com.example.pan.domain.models.Response.Failure
 import com.example.pan.domain.models.Response.Success
 import com.example.pan.domain.models.classes.PanClass
 import com.example.pan.domain.models.user.User
+import com.example.pan.domain.repository.classes.Classes
 import com.example.pan.domain.repository.classes.ClassesRepository
 import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.tasks.await
@@ -29,7 +29,7 @@ class ClassesRepositoryImpl @Inject constructor(
         Failure(e)
     }
 
-    override suspend fun getClassesList(): Response<List<PanClass>> = try {
+    override suspend fun getClassesList(): Classes = try {
         val classes = classesRef
             .get()
             .await()
@@ -40,7 +40,7 @@ class ClassesRepositoryImpl @Inject constructor(
         Failure(e)
     }
 
-    override suspend fun getClassesListFromIds(classIds: List<String>): Response<List<PanClass>> {
+    override suspend fun getClassesListFromIds(classIds: List<String>): Classes {
         try {
             if (classIds.isEmpty()) {
                 return Success(emptyList())

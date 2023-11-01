@@ -1,10 +1,11 @@
 package com.example.pan.data.repository
 
-import com.example.pan.domain.models.Response
 import com.example.pan.domain.models.Response.*
 import com.example.pan.domain.models.classes.PanClass
 import com.example.pan.domain.models.lesson.Lesson
 import com.example.pan.domain.repository.lesson.LessonRepository
+import com.example.pan.domain.repository.lesson.LessonResponse
+import com.example.pan.domain.repository.lesson.LessonsList
 import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -18,7 +19,7 @@ class LessonRepositoryImpl @Inject constructor(
     @Named("classes")
     private val classesRef: CollectionReference
 ) : LessonRepository {
-    override suspend fun getLesson(lessonId: String): Response<Lesson> = try {
+    override suspend fun getLesson(lessonId: String): LessonResponse = try {
         val lesson = lessonsRef
             .document(lessonId)
             .get()
@@ -30,15 +31,28 @@ class LessonRepositoryImpl @Inject constructor(
         Failure(e)
     }
 
-    override suspend fun getLessonsList(): Response<List<Lesson>> = try {
-        val lessons = lessonsRef
-            .get()
-            .await()
-            .toObjects(Lesson::class.java)
+    override suspend fun getLessonsList(classId: String): LessonsList {
+        try {
+            val panClass = classesRef
+                .document(classId)
+                .get()
+                .await()
+                .toObject(PanClass::class.java)!!
 
-        Success(lessons)
-    } catch (e: Exception) {
-        Failure(e)
+            val lessonsIds = panClass.lessonsList.ifEmpty {
+                return Success(emptyList())
+            }
+
+            val lessons = lessonsRef
+                .whereIn("lessonId", lessonsIds)
+                .get()
+                .await()
+                .toObjects(Lesson::class.java)
+
+            return Success(lessons)
+        } catch (e: Exception) {
+            return Failure(e)
+        }
     }
 
     override suspend fun addLesson(lesson: Lesson, classId: String) {
@@ -49,7 +63,7 @@ class LessonRepositoryImpl @Inject constructor(
             .toObject(PanClass::class.java)!!
 
         val lessons = classToAdd.lessonsList as ArrayList
-        lessons.add(lesson)
+        lessons.add(lesson.lessonId!!)
 
         classesRef
             .document(classId)

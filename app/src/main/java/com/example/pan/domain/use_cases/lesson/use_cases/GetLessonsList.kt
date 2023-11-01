@@ -5,5 +5,5 @@ import com.example.pan.domain.repository.lesson.LessonRepository
 class GetLessonsList(
     private val repo: LessonRepository
 ) {
-    suspend operator fun invoke() = repo.getLessonsList()
+    suspend operator fun invoke(classId: String) = repo.getLessonsList(classId)
 }

@@ -1,16 +1,24 @@
 package com.example.pan.presentation.views.main.main_page
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pan.core.createClassId
+import com.example.pan.domain.models.Response.Idle
 import com.example.pan.domain.models.classes.PanClass
-import com.example.pan.domain.models.lesson.Lesson
 import com.example.pan.domain.models.user.User
+import com.example.pan.domain.repository.classes.AddStudent
+import com.example.pan.domain.repository.classes.Classes
+import com.example.pan.domain.repository.classes.CreateClassResponse
+import com.example.pan.domain.repository.lesson.LessonsList
+import com.example.pan.domain.repository.user.SingleUser
+import com.example.pan.domain.repository.user.UpdateUserResponse
 import com.example.pan.domain.use_cases.classes.PanClassUseCases
+import com.example.pan.domain.use_cases.lesson.LessonUseCases
 import com.example.pan.domain.use_cases.user.UserUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,91 +26,76 @@ import javax.inject.Inject
 class MainPageViewModel @Inject constructor(
     private val userUseCases: UserUseCases,
     private val panClassUseCases: PanClassUseCases,
-//    private var lessonUseCases: LessonUseCases
+    private var lessonUseCases: LessonUseCases
 ) : ViewModel() {
-    private val _state = MutableStateFlow(MainPageState())
-    val state = _state.asStateFlow()
+    var getUser by mutableStateOf<SingleUser>(Idle)
+        private set
+    var updateUser by mutableStateOf<UpdateUserResponse>(Idle)
+        private set
+    var addStudent by mutableStateOf<AddStudent>(Idle)
+        private set
+    var getClasses by mutableStateOf<Classes>(Idle)
+        private set
+    var createClass by mutableStateOf<CreateClassResponse>(Idle)
+        private set
+    var getLessons by mutableStateOf<LessonsList>(Idle)
+        private set
 
     init {
         getUser()
-//        getLessonsList()
     }
 
-    // Lessons
-
-//    fun getLessonsList() = viewModelScope.launch {
-//        _state.value.getLessonsListResponse = lessonUseCases.getLessonsList()
-//    }
-
-    fun setLessonsList(lessonsList: List<Lesson>) {
-        _state.value.lessonsList = lessonsList
-    }
-     // User
-
-    fun getUser() = viewModelScope.launch {
-        _state.value.getUserResponse = userUseCases.getLoggedUser()
+    // User
+    private fun getUser() = viewModelScope.launch {
+        getUser = userUseCases.getLoggedUser()
     }
 
-    fun setUser(user: User) {
-        _state.value.user = user
+    fun getClassesListFromIds(user: User) = viewModelScope.launch {
+        getClasses = panClassUseCases.getClassesListFromIds(
+            user.panClassesId ?: emptyList()
+        )
     }
 
     fun signOut() = viewModelScope.launch {
         userUseCases.signOut()
     }
 
-    fun setProfileInvisible(isProfileInvisible: Boolean) {
-        _state.value.isProfileInvisibleChecked = isProfileInvisible
-    }
-
-    // PanClasses
-
-    fun createClass(className: String): PanClass {
+    // Classes
+    fun createClass(className: String, teacher: User): PanClass {
         val classId = createClassId()
 
         return PanClass(
             className = className,
             teachers = listOf(
-                _state.value.user!!
+                teacher
             ),
             classId = classId
         )
     }
 
     fun addPanClassToFirebase(panClass: PanClass) = viewModelScope.launch {
-        _state.value.createClassResponse = panClassUseCases.createClass(panClass)
+        createClass = panClassUseCases.createClass(panClass)
     }
 
-    fun addClassIdToUser(classId: String) = viewModelScope.launch {
-        val user = _state.value.user!!
-        val panClassesId = user.panClassesId as ArrayList
-        panClassesId.add(classId)
+    fun addClassIdToUser(classId: String, user: User) = viewModelScope.launch {
+        val updatedUser = user.copy(
+            panClassesId = user.panClassesId?.plus(classId)
+        )
 
-        user.panClassesId = panClassesId
-
-        _state.value.updateUserResponse = userUseCases.updateUser(user)
+        updateUser = userUseCases.updateUser(updatedUser)
     }
 
-    fun addStudentToClass(classId: String) = viewModelScope.launch {
-        val studentId = _state.value.user?.userId
+    fun addStudentToClass(classId: String, user: User) = viewModelScope.launch {
+        val studentId = user.userId
 
-        _state.value.addStudentResponse = panClassUseCases.addStudentToClass(
+        addStudent = panClassUseCases.addStudentToClass(
             studentId = studentId!!,
             classId = classId
         )
     }
 
-    fun getClassesListFromIds() = viewModelScope.launch {
-        _state.value.getClassesListResponse = panClassUseCases.getClassesListFromIds(
-            _state.value.user?.panClassesId ?: emptyList()
-        )
-    }
-
-    fun setClassesList(panClasses: List<PanClass>) {
-        _state.value.classesList = panClasses
-    }
-
-    fun setSelectedClassId(classId: String) {
-        _state.value.selectedClassId = classId
+    // Lessons
+    fun getLessons(classId: String) = viewModelScope.launch {
+        getLessons = lessonUseCases.getLessonsList(classId)
     }
 }

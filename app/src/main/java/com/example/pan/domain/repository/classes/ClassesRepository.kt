@@ -3,14 +3,19 @@ package com.example.pan.domain.repository.classes
 import com.example.pan.domain.models.Response
 import com.example.pan.domain.models.classes.PanClass
 
+typealias Classes = Response<List<PanClass>>
+typealias CreateClassResponse = Response<Boolean>
+typealias AddStudent = Response<Boolean>
+typealias AddTeacher = Response<Boolean>
+
 interface ClassesRepository {
-    suspend fun createClass(panClass: PanClass): Response<Boolean>
+    suspend fun createClass(panClass: PanClass): CreateClassResponse
 
-    suspend fun getClassesList(): Response<List<PanClass>>
+    suspend fun getClassesList(): Classes
 
-    suspend fun getClassesListFromIds(classIds: List<String>): Response<List<PanClass>>
+    suspend fun getClassesListFromIds(classIds: List<String>): Classes
 
-    suspend fun addStudentToClass(studentId: String, classId: String): Response<Boolean>
+    suspend fun addStudentToClass(studentId: String, classId: String): AddStudent
 
-    suspend fun addTeacherToClass(teacherId: String, classId: String): Response<Boolean>
+    suspend fun addTeacherToClass(teacherId: String, classId: String): AddTeacher
 }
