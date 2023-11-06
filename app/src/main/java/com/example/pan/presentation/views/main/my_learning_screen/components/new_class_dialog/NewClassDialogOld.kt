@@ -1,4 +1,4 @@
-//package com.example.pan.presentation.views.main.my_learning_screen.components
+package com.example.pan.presentation.views.main.my_learning_screen.components.new_class_dialog//package com.example.pan.presentation.views.main.my_learning_screen.components
 //
 //import androidx.compose.foundation.layout.Arrangement
 //import androidx.compose.foundation.layout.Column

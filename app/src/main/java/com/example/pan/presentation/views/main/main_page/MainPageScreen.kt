@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -26,6 +27,12 @@ fun MainPageScreen(
 ) {
     var selectedScreenIndex by rememberSaveable {
         mutableIntStateOf(1)
+    }
+
+    LaunchedEffect(
+        key1 = viewModel.updateUser
+    ) {
+        viewModel.getUser()
     }
 
     Scaffold(
@@ -57,69 +64,4 @@ fun MainPageScreen(
             )
         }
     )
-//    { paddingValues ->
-//        Box(modifier = Modifier.padding(paddingValues)) {
-//            when (selectedScreenIndex) {
-//                0 -> { // Profile
-//                    ResponseHandler(
-//                        response = state.getUserResponse,
-//                        onSuccessComposable = { data ->
-//                            val user = data as User
-//                            viewModel.setUser(user)
-//
-//                            ProfileScreen(
-//                                user = state.user!!,
-//                                isProfileInvisibleChecked = state.isProfileInvisibleChecked,
-//                                onLogout = {
-//                                    viewModel.signOut()
-//                                    activity.finishAndRemoveTask()
-//                                },
-//                                onProfileInvisibleCheck = {
-//                                    viewModel.setProfileInvisible(it)
-//                                }
-//                            )
-//                        }
-//                    )
-//                }
-//                1 -> { // My Learning
-//                    ResponseHandler(
-//                        response = state.getUserResponse,
-//                        onSuccessComposable = { user ->
-//                            viewModel.setUser(user as User)
-//                            viewModel.getClassesListFromIds()
-//
-//                            ResponseHandler(
-//                                response = state.getClassesListResponse,
-//                                onSuccessComposable = { panClasses ->
-//                                    viewModel.setClassesList(panClasses as List<PanClass>)
-//
-//                                    MyLearningScreen(
-//                                        user = state.user!!,
-//                                        selectedClassId = state.selectedClassId,
-//                                        classesList = state.classesList,
-//                                        onSelectClass = {
-//                                            viewModel.setSelectedClassId(it)
-//                                        },
-//                                        onNewClass = {
-//                                            openDialog = true
-//                                        }
-//                                    )
-//                                    if (openDialog) {
-//                                        NewClassDialog(
-//                                            isTeacher = user.teacher!!,
-//                                            viewModel = viewModel,
-//                                            onDismiss = { openDialog = false }
-//                                        )
-//                                    }
-//                                },
-//                                onFailureComposable = { error ->
-//                                    Text(text = error?.message?: "Something went wrong :/")
-//                                }
-//                            )
-//                        }
-//                    )
-//                }
-//            }
-//        }
-//    }
 }

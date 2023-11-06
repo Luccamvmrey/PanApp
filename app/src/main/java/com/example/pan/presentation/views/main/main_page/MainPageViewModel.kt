@@ -5,8 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.pan.core.StringConstants.CLASS_NAME_MUST_NOT_BE_EMPTY
 import com.example.pan.core.createClassId
+import com.example.pan.domain.models.InputError
 import com.example.pan.domain.models.Response.Idle
+import com.example.pan.domain.models.Response.Loading
 import com.example.pan.domain.models.classes.PanClass
 import com.example.pan.domain.models.user.User
 import com.example.pan.domain.repository.classes.AddStudent
@@ -28,6 +31,9 @@ class MainPageViewModel @Inject constructor(
     private val panClassUseCases: PanClassUseCases,
     private var lessonUseCases: LessonUseCases
 ) : ViewModel() {
+    var classNameError by mutableStateOf(InputError())
+        private set
+
     var getUser by mutableStateOf<SingleUser>(Idle)
         private set
     var updateUser by mutableStateOf<UpdateUserResponse>(Idle)
@@ -46,7 +52,7 @@ class MainPageViewModel @Inject constructor(
     }
 
     // User
-    private fun getUser() = viewModelScope.launch {
+    fun getUser() = viewModelScope.launch {
         getUser = userUseCases.getLoggedUser()
     }
 
@@ -61,6 +67,17 @@ class MainPageViewModel @Inject constructor(
     }
 
     // Classes
+    fun checkCreateClass(className: String) : Boolean {
+        if (className.isEmpty()) {
+            classNameError = InputError(
+                isError = true,
+                message = CLASS_NAME_MUST_NOT_BE_EMPTY
+            )
+            return false
+        }
+        return true
+    }
+
     fun createClass(className: String, teacher: User): PanClass {
         val classId = createClassId()
 
@@ -74,6 +91,7 @@ class MainPageViewModel @Inject constructor(
     }
 
     fun addPanClassToFirebase(panClass: PanClass) = viewModelScope.launch {
+        createClass = Loading
         createClass = panClassUseCases.createClass(panClass)
     }
 
@@ -82,12 +100,14 @@ class MainPageViewModel @Inject constructor(
             panClassesId = user.panClassesId?.plus(classId)
         )
 
+        updateUser = Loading
         updateUser = userUseCases.updateUser(updatedUser)
     }
 
     fun addStudentToClass(classId: String, user: User) = viewModelScope.launch {
         val studentId = user.userId
 
+        addStudent = Loading
         addStudent = panClassUseCases.addStudentToClass(
             studentId = studentId!!,
             classId = classId
@@ -96,6 +116,7 @@ class MainPageViewModel @Inject constructor(
 
     // Lessons
     fun getLessons(classId: String) = viewModelScope.launch {
+        getLessons = Loading
         getLessons = lessonUseCases.getLessonsList(classId)
     }
 }
