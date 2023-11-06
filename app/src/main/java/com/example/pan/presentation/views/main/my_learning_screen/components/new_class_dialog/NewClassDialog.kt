@@ -24,7 +24,10 @@ fun NewClassDialog(
                 },
                 isStudentContent = {
                     StudentDialog(
-                        user = user
+                        user = user,
+                        onDismissRequest = {
+                            onDismissRequest()
+                        }
                     )
                 },
             )

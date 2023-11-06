@@ -1,5 +1,6 @@
 package com.example.pan.data.repository
 
+import android.util.Log
 import com.example.pan.domain.models.Response.Failure
 import com.example.pan.domain.models.Response.Success
 import com.example.pan.domain.models.classes.PanClass
@@ -21,7 +22,8 @@ class ClassesRepositoryImpl @Inject constructor(
 ) : ClassesRepository {
     override suspend fun createClass(panClass: PanClass) = try {
         classesRef
-            .add(panClass)
+            .document(panClass.classId!!)
+            .set(panClass)
             .await()
 
         Success(true)
@@ -42,6 +44,7 @@ class ClassesRepositoryImpl @Inject constructor(
 
     override suspend fun getClassesListFromIds(classIds: List<String>): Classes {
         try {
+            Log.d("ADD_STUDENT", "ClassesRepository: $classIds")
             if (classIds.isEmpty()) {
                 return Success(emptyList())
             }

@@ -1,5 +1,6 @@
 package com.example.pan.presentation.views.main.main_page.components
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import com.example.pan.domain.models.user.User
 import com.example.pan.presentation.views.main.my_learning_screen.MyLearningScreen
@@ -16,7 +17,8 @@ fun MainPageContent(
         }
         1 -> {
             // My Learning
-            GetClasses { classes ->  
+            GetClasses { classes ->
+                Log.d("ADD_STUDENT", "MainPageContent: $classes")
                 MyLearningScreen(
                     user = user,
                     classesList = classes

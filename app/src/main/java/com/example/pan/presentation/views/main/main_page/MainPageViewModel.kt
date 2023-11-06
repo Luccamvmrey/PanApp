@@ -1,10 +1,12 @@
 package com.example.pan.presentation.views.main.main_page
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.pan.core.StringConstants.CLASS_ID_MUST_NOT_BE_EMPTY
 import com.example.pan.core.StringConstants.CLASS_NAME_MUST_NOT_BE_EMPTY
 import com.example.pan.core.createClassId
 import com.example.pan.domain.models.InputError
@@ -33,6 +35,8 @@ class MainPageViewModel @Inject constructor(
 ) : ViewModel() {
     var classNameError by mutableStateOf(InputError())
         private set
+    var classIdError by mutableStateOf(InputError())
+        private set
 
     var getUser by mutableStateOf<SingleUser>(Idle)
         private set
@@ -57,6 +61,7 @@ class MainPageViewModel @Inject constructor(
     }
 
     fun getClassesListFromIds(user: User) = viewModelScope.launch {
+        Log.d("ADD_STUDENT", "getClassesListFromIds: ${user.panClassesId}")
         getClasses = panClassUseCases.getClassesListFromIds(
             user.panClassesId ?: emptyList()
         )
@@ -68,6 +73,7 @@ class MainPageViewModel @Inject constructor(
 
     // Classes
     fun checkCreateClass(className: String) : Boolean {
+        classNameError = InputError()
         if (className.isEmpty()) {
             classNameError = InputError(
                 isError = true,
@@ -104,8 +110,21 @@ class MainPageViewModel @Inject constructor(
         updateUser = userUseCases.updateUser(updatedUser)
     }
 
+    fun checkClassId(classId: String) : Boolean {
+        classIdError = InputError()
+        if (classId.isEmpty()) {
+            classIdError = InputError(
+                isError = true,
+                message = CLASS_ID_MUST_NOT_BE_EMPTY
+            )
+            return false
+        }
+        return true
+    }
+
     fun addStudentToClass(classId: String, user: User) = viewModelScope.launch {
         val studentId = user.userId
+        Log.d("ADD_STUDENT", "addStudentToClass: $studentId")
 
         addStudent = Loading
         addStudent = panClassUseCases.addStudentToClass(
