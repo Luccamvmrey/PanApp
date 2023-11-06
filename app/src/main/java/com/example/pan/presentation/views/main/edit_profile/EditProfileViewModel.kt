@@ -1,17 +1,22 @@
 package com.example.pan.presentation.views.main.edit_profile
 
 import android.graphics.Bitmap
-import android.net.Uri
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pan.core.StringConstants.EMAIL_MUST_NOT_BE_EMPTY
 import com.example.pan.core.StringConstants.NAME_MUST_NOT_BE_EMPTY
 import com.example.pan.domain.models.InputError
+import com.example.pan.domain.models.Response.Idle
+import com.example.pan.domain.models.Response.Loading
 import com.example.pan.domain.models.user.User
+import com.example.pan.domain.repository.user.SingleUser
+import com.example.pan.domain.repository.user.UpdateUserResponse
+import com.example.pan.domain.repository.user.UploadUserProfileImageResponse
 import com.example.pan.domain.use_cases.user.UserUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,66 +24,66 @@ import javax.inject.Inject
 class EditProfileViewModel @Inject constructor(
     private val userUseCases: UserUseCases
 ) : ViewModel() {
-    private val _state = MutableStateFlow(EditProfileState())
-    val state = _state.asStateFlow()
+    var currentUser by mutableStateOf(User())
+    var nameError by mutableStateOf(InputError())
+    var emailError by mutableStateOf(InputError())
+    var getUser by mutableStateOf<SingleUser>(Idle)
+        private set
+    var uploadImage by mutableStateOf<UploadUserProfileImageResponse>(Idle)
+        private set
+    var updateUser by mutableStateOf<UpdateUserResponse>(Idle)
+        private set
 
-    fun setName(name: String) {
-        _state.value.name = name
+    init {
+        getUser()
     }
 
-    fun setEmail(email: String) {
-        _state.value.email = email
-    }
+    fun checkFields(name: String, email: String): Boolean {
+        nameError = InputError()
+        emailError = InputError()
 
-    fun setImageUri(imageUri: Uri) {
-        _state.value.imageUri = imageUri
-    }
-
-    fun setBitmap(bitmap: Bitmap) {
-        _state.value.bitmap = bitmap
-    }
-
-    fun setUser(user: User) {
-        _state.value.user = user
-    }
-
-    fun checkFields(): Boolean {
-        _state.value.nameError = InputError()
-        _state.value.emailError = InputError()
-
-        if (_state.value.name.isEmpty()) {
-            _state.value.nameError = InputError(
+        if (name.isEmpty()) {
+            nameError = InputError(
                 isError = true,
                 message = NAME_MUST_NOT_BE_EMPTY
             )
         }
 
-        if (_state.value.email.isEmpty()) {
-            _state.value.emailError = InputError(
+        if (email.isEmpty()) {
+            emailError = InputError(
                 isError = true,
                 message = EMAIL_MUST_NOT_BE_EMPTY
             )
         }
 
-        if (_state.value.nameError.isError || _state.value.emailError.isError) {
+        if (nameError.isError || emailError.isError) {
             return false
         }
 
         return true
     }
 
-    fun getUser() = viewModelScope.launch {
-        _state.value.getUserResponse = userUseCases.getLoggedUser()
+    private fun getUser() = viewModelScope.launch {
+        getUser = Loading
+        getUser = userUseCases.getLoggedUser()
     }
 
-    fun uploadUserProfilePicture() = viewModelScope.launch {
-        _state.value.isUploadingImage = true
-        _state.value.uploadProfilePictureResponse = userUseCases.uploadUserProfileImage(
-            _state.value.bitmap!!
-        )
+    fun uploadUserProfilePicture(bitmap: Bitmap) = viewModelScope.launch {
+        uploadImage = Loading
+        uploadImage = userUseCases.uploadUserProfileImage(bitmap)
     }
 
-    fun updateUser(user: User) = viewModelScope.launch {
-        _state.value.updateUserResponse = userUseCases.updateUser(user)
+    fun updateUser(
+        user: User? = null,
+        name: String? = null,
+        email: String? = null
+    ) = viewModelScope.launch {
+        val newUser = user
+            ?: currentUser.copy(
+                name = name!!,
+                email = email!!
+            )
+        updateUser = Loading
+        updateUser = userUseCases.updateUser(newUser)
     }
 }

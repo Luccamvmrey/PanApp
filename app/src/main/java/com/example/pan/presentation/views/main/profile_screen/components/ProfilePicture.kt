@@ -6,7 +6,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
@@ -18,6 +17,23 @@ fun ProfilePicture(
 ) {
     val model = photoUrl ?: R.drawable.avatar
     val painter = rememberAsyncImagePainter(model = model)
+    Image(
+        painter = painter,
+        contentDescription = null,
+        modifier = Modifier
+            .size(152.dp)
+            .clip(CircleShape),
+        contentScale = ContentScale.Crop
+    )
+}
+
+@Composable
+fun ProfilePicture(
+    model: Any?,
+    photoUrl: String?
+) {
+    val modelFinal: Any = model ?: (photoUrl ?: R.drawable.avatar)
+    val painter = rememberAsyncImagePainter(model = modelFinal)
     Image(
         painter = painter,
         contentDescription = null,
