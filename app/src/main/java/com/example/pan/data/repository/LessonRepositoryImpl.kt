@@ -39,7 +39,7 @@ class LessonRepositoryImpl @Inject constructor(
                 .await()
                 .toObject(PanClass::class.java)!!
 
-            val lessonsIds = panClass.lessonsList.ifEmpty {
+            val lessonsIds = panClass.lessonIdList.ifEmpty {
                 return Success(emptyList())
             }
 
@@ -55,19 +55,23 @@ class LessonRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun addLesson(lesson: Lesson, classId: String) {
+    override suspend fun addLesson(lesson: Lesson, classId: String) = try {
         val classToAdd = classesRef
             .document(classId)
             .get()
             .await()
             .toObject(PanClass::class.java)!!
 
-        val lessons = classToAdd.lessonsList as ArrayList
+        val lessons = classToAdd.lessonIdList as ArrayList
         lessons.add(lesson.lessonId!!)
 
         classesRef
             .document(classId)
-            .update("lessonsList", lessons)
+            .update("lessonsIdList", lessons)
             .await()
+
+        Success(true)
+    } catch (e: Exception) {
+        Failure(e)
     }
 }

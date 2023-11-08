@@ -38,6 +38,7 @@ object StringConstants {
     const val DONE = "Feito!"
     const val CLASS_ENTERED = "Turma adicionada com sucesso!"
     const val CLASS_DOES_NOT_EXIST = "Turma não encontrada."
+    const val NEW_LESSON = "Nova Aula"
 
     // ProfileScreen
     const val WELCOME_USER = "Bem-vindo, %s"

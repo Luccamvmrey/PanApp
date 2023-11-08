@@ -1,23 +1,21 @@
-package com.example.pan.presentation.views.main.my_learning_screen.components
+package com.example.pan.presentation.views.main.my_learning_screen.components.carousel
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.pan.core.StringConstants.NEW_CLASS
+import com.example.pan.core.StringConstants
 import com.example.pan.domain.models.classes.PanClass
 import com.example.pan.presentation.ui.theme.spacing
-import com.example.pan.presentation.views.components.SmallSpacer
 
 @Composable
-fun ClassesCarousel(
+fun ClassesList(
     classesList: List<PanClass>,
-    selectedClassId: String?,
+    selectedClassId: String,
     onClassClick: (String) -> Unit,
-    onCreateNew: () -> Unit
+    onCreateNew: () -> Unit,
 ) {
     LazyRow(
         modifier = Modifier
@@ -26,7 +24,7 @@ fun ClassesCarousel(
     ) {
         item {
             ClassTag(
-                className = NEW_CLASS,
+                className = StringConstants.NEW_CLASS,
                 isSelected = false,
                 onClick = {
                     onCreateNew()
@@ -47,7 +45,4 @@ fun ClassesCarousel(
             }
         }
     }
-    SmallSpacer()
-    Divider()
-    SmallSpacer()
 }

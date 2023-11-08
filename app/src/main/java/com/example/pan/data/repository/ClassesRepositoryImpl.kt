@@ -7,6 +7,7 @@ import com.example.pan.domain.models.user.User
 import com.example.pan.domain.repository.classes.AddStudent
 import com.example.pan.domain.repository.classes.Classes
 import com.example.pan.domain.repository.classes.ClassesRepository
+import com.example.pan.domain.repository.classes.PanClassResponse
 import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -27,6 +28,18 @@ class ClassesRepositoryImpl @Inject constructor(
             .await()
 
         Success(true)
+    } catch (e: Exception) {
+        Failure(e)
+    }
+
+    override suspend fun getPanClass(classId: String): PanClassResponse = try {
+        val panClass = classesRef
+            .document(classId)
+            .get()
+            .await()
+            .toObject(PanClass::class.java)!!
+
+        Success(panClass)
     } catch (e: Exception) {
         Failure(e)
     }

@@ -13,7 +13,7 @@ import com.example.pan.domain.models.classes.PanClass
 import com.example.pan.domain.models.user.User
 import com.example.pan.presentation.ui.theme.spacing
 import com.example.pan.presentation.views.components.ContentHolder
-import com.example.pan.presentation.views.main.my_learning_screen.components.ClassesCarousel
+import com.example.pan.presentation.views.main.my_learning_screen.components.carousel.ClassesCarousel
 import com.example.pan.presentation.views.main.my_learning_screen.components.MyLearningContent
 import com.example.pan.presentation.views.main.my_learning_screen.components.new_class_dialog.NewClassDialog
 
@@ -37,6 +37,7 @@ fun MyLearningScreen(
         ClassesCarousel(
             classesList = classesList,
             selectedClassId = selectedClassId,
+            user = user,
             onClassClick = {
                 selectedClassId = it
             },

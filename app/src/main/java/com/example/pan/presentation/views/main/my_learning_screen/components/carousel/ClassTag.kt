@@ -1,4 +1,4 @@
-package com.example.pan.presentation.views.main.my_learning_screen.components
+package com.example.pan.presentation.views.main.my_learning_screen.components.carousel
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable

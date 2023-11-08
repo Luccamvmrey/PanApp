@@ -15,6 +15,7 @@ import com.example.pan.domain.use_cases.classes.use_classes.AddTeacherToClass
 import com.example.pan.domain.use_cases.classes.use_classes.CreateClass
 import com.example.pan.domain.use_cases.classes.use_classes.GetClassesList
 import com.example.pan.domain.use_cases.classes.use_classes.GetClassesListFromIds
+import com.example.pan.domain.use_cases.classes.use_classes.GetPanClass
 import com.example.pan.domain.use_cases.lesson.LessonUseCases
 import com.example.pan.domain.use_cases.lesson.use_cases.AddLesson
 import com.example.pan.domain.use_cases.lesson.use_cases.GetLesson
@@ -124,6 +125,7 @@ object AppModule {
         repo: ClassesRepository
     ) = PanClassUseCases(
         createClass = CreateClass(repo),
+        getPanClass = GetPanClass(repo),
         getClassesList = GetClassesList(repo),
         addStudentToClass = AddStudentToClass(repo),
         getClassesListFromIds = GetClassesListFromIds(repo),
