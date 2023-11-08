@@ -1,6 +1,5 @@
 package com.example.pan.presentation.views.main.main_page
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -61,7 +60,6 @@ class MainPageViewModel @Inject constructor(
     }
 
     fun getClassesListFromIds(user: User) = viewModelScope.launch {
-        Log.d("ADD_STUDENT", "getClassesListFromIds: ${user.panClassesId}")
         getClasses = panClassUseCases.getClassesListFromIds(
             user.panClassesId ?: emptyList()
         )
@@ -124,7 +122,6 @@ class MainPageViewModel @Inject constructor(
 
     fun addStudentToClass(classId: String, user: User) = viewModelScope.launch {
         val studentId = user.userId
-        Log.d("ADD_STUDENT", "addStudentToClass: $studentId")
 
         addStudent = Loading
         addStudent = panClassUseCases.addStudentToClass(

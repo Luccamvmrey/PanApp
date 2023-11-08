@@ -2,7 +2,6 @@ package com.example.pan.presentation.views.main.my_learning_screen.components.ne
 
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -15,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.pan.core.StringConstants
+import com.example.pan.core.StringConstants.CLASS_DOES_NOT_EXIST
 import com.example.pan.core.StringConstants.CLASS_ID
 import com.example.pan.core.StringConstants.ENTER_CLASS
 import com.example.pan.core.StringConstants.INSERT_CLASS_ID
@@ -75,10 +75,13 @@ fun StudentDialog(
             }
         }
         2 -> {
-            AddStudent {
-                viewModel.addClassIdToUser(classId, user)
-                Log.d("ADD_STUDENT", "StudentDialog: Adding ${user.name} to class $classId")
-                currentState++
+            AddStudent { classExists ->
+                if (classExists) {
+                    viewModel.addClassIdToUser(classId, user)
+                    currentState++
+                } else {
+                    Text(text = CLASS_DOES_NOT_EXIST)
+                }
             }
         }
         3 -> {

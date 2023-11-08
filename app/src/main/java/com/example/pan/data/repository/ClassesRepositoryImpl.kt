@@ -1,10 +1,10 @@
 package com.example.pan.data.repository
 
-import android.util.Log
 import com.example.pan.domain.models.Response.Failure
 import com.example.pan.domain.models.Response.Success
 import com.example.pan.domain.models.classes.PanClass
 import com.example.pan.domain.models.user.User
+import com.example.pan.domain.repository.classes.AddStudent
 import com.example.pan.domain.repository.classes.Classes
 import com.example.pan.domain.repository.classes.ClassesRepository
 import com.google.firebase.firestore.CollectionReference
@@ -44,7 +44,6 @@ class ClassesRepositoryImpl @Inject constructor(
 
     override suspend fun getClassesListFromIds(classIds: List<String>): Classes {
         try {
-            Log.d("ADD_STUDENT", "ClassesRepository: $classIds")
             if (classIds.isEmpty()) {
                 return Success(emptyList())
             }
@@ -61,31 +60,37 @@ class ClassesRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun addStudentToClass(studentId: String, classId: String) = try {
-        val panClassRef = classesRef
-            .document(classId)
-            .get()
-            .await()
-
-        val student = usersRef
-            .document(studentId)
-            .get()
-            .await()
-            .toObject(User::class.java)!!
-
-        panClassRef.toObject(PanClass::class.java)?.let {
-            val students = it.students as ArrayList
-            students.add(student)
-
-            classesRef
+    override suspend fun addStudentToClass(studentId: String, classId: String) : AddStudent {
+        try {
+            val panClassRef = classesRef
                 .document(classId)
-                .update("students", students)
+                .get()
                 .await()
-        }
 
-        Success(true)
-    } catch (e: Exception) {
-        Failure(e)
+            if (panClassRef.data.isNullOrEmpty()) {
+                return Success(false)
+            }
+
+            val student = usersRef
+                .document(studentId)
+                .get()
+                .await()
+                .toObject(User::class.java)!!
+
+            panClassRef.toObject(PanClass::class.java)?.let {
+                val students = it.students as ArrayList
+                students.add(student)
+
+                classesRef
+                    .document(classId)
+                    .update("students", students)
+                    .await()
+            }
+
+            return Success(true)
+        } catch (e: Exception) {
+            return Failure(e)
+        }
     }
 
     override suspend fun addTeacherToClass(teacherId: String, classId: String) = try {

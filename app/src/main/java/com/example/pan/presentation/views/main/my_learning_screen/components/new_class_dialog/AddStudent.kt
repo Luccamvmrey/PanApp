@@ -12,12 +12,12 @@ import com.example.pan.presentation.views.main.main_page.MainPageViewModel
 @Composable
 fun AddStudent(
     viewModel: MainPageViewModel = hiltViewModel(),
-    content: () -> Unit
+    content: @Composable (Boolean) -> Unit
 ) {
     when(val result = viewModel.addStudent) {
         Loading -> PanProgressBar()
         is Success -> {
-            content()
+            content(result.data)
         }
         is Failure -> {
             Text(text = result.e.toString())
