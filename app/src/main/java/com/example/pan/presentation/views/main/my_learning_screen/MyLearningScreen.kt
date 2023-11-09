@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.navigation.NavController
 import com.example.pan.core.StringConstants.NO_VALUE
 import com.example.pan.domain.models.classes.PanClass
 import com.example.pan.domain.models.user.User
@@ -21,6 +22,7 @@ import com.example.pan.presentation.views.main.my_learning_screen.components.new
 fun MyLearningScreen(
     user: User,
     classesList: List<PanClass>,
+    navController: NavController,
 ) {
     var selectedClassId by rememberSaveable {
         mutableStateOf(NO_VALUE)
@@ -38,6 +40,7 @@ fun MyLearningScreen(
             classesList = classesList,
             selectedClassId = selectedClassId,
             user = user,
+            navController = navController,
             onClassClick = {
                 selectedClassId = it
             },

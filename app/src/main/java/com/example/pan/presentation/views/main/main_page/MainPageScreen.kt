@@ -49,7 +49,8 @@ fun MainPageScreen(
 
                     MainPageContent(
                         selectedScreenIndex = selectedScreenIndex,
-                        user = user
+                        user = user,
+                        navController = navController
                     )
                 }
             }

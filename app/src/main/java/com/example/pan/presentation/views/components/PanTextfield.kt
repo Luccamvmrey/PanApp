@@ -6,17 +6,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import com.example.pan.domain.models.InputError
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PanTextField(
+    modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
     labelText: String,
     error: InputError,
-    keyboardType: KeyboardType = KeyboardType.Text,
+    singleLine: Boolean = true,
+    keyboardType: KeyboardType = KeyboardType.Text
 ) {
     OutlinedTextField(
         value = value,
@@ -37,6 +40,7 @@ fun PanTextField(
                 )
             }
         },
-        singleLine = true
+        singleLine = singleLine,
+        modifier = modifier
     )
 }

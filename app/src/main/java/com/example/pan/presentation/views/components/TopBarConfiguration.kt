@@ -1,4 +1,4 @@
-package com.example.pan.presentation.views.main.main_page.components
+package com.example.pan.presentation.views.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Edit
@@ -18,4 +18,9 @@ val myLearningScreenTopBar = TopBarConfiguration(
 val profileScreenTopBar = TopBarConfiguration(
     title = StringConstants.PROFILE,
     actions = Icons.Outlined.Edit,
+)
+
+val newLessonScreenTopBar = TopBarConfiguration(
+    title = StringConstants.NEW_LESSON,
+    actions = null,
 )

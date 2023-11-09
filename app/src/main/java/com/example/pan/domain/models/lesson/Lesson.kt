@@ -1,5 +1,7 @@
 package com.example.pan.domain.models.lesson
 
+import android.util.Patterns
+
 typealias LessonId = String
 
 data class Lesson(
@@ -10,3 +12,7 @@ data class Lesson(
     val lessonText: String? = null,
     val questions: List<Question>? = null
 )
+
+fun String.isValidUrl(): Boolean {
+    return Patterns.WEB_URL.matcher(this).matches()
+}

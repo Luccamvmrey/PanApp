@@ -1,4 +1,4 @@
-package com.example.pan.presentation.views.main.main_page.components
+package com.example.pan.presentation.views.components
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -10,12 +10,13 @@ import androidx.compose.runtime.Composable
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(
+    extraTitle: String? = null,
     configuration: TopBarConfiguration,
     onAction: (() -> Unit)? = null,
 ) {
     TopAppBar(
         title = {
-            Text(text = configuration.title)
+            Text(text = configuration.title + (extraTitle ?: ""))
         },
         actions = {
             IconButton(

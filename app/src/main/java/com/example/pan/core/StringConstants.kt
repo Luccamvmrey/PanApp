@@ -40,6 +40,14 @@ object StringConstants {
     const val CLASS_DOES_NOT_EXIST = "Turma não encontrada."
     const val NEW_LESSON = "Nova Aula"
 
+    // NewLessonScreen
+    const val LESSON_TITLE = "Título da aula"
+    const val ENTER_LESSON_TITLE = "Insira o título da aula"
+    const val VIDEO_NOT_OBLIGATORY = "Adicione um vídeo (opcional)"
+    const val VIDEO_URL = "URL do vídeo"
+    const val CONTENT = "Conteúdo"
+    const val ADD = "Adicionar"
+
     // ProfileScreen
     const val WELCOME_USER = "Bem-vindo, %s"
     const val WATCHED_LESSONS = "Aulas assistidas"

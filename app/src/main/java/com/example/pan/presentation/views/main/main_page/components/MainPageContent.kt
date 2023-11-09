@@ -1,6 +1,7 @@
 package com.example.pan.presentation.views.main.main_page.components
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 import com.example.pan.domain.models.user.User
 import com.example.pan.presentation.views.main.my_learning_screen.MyLearningScreen
 import com.example.pan.presentation.views.main.profile_screen.ProfileScreen
@@ -8,7 +9,8 @@ import com.example.pan.presentation.views.main.profile_screen.ProfileScreen
 @Composable
 fun MainPageContent(
     selectedScreenIndex: Int,
-    user: User
+    user: User,
+    navController: NavController
 ) {
     when (selectedScreenIndex) {
         0 -> {
@@ -19,7 +21,8 @@ fun MainPageContent(
             GetClasses { classes ->
                 MyLearningScreen(
                     user = user,
-                    classesList = classes
+                    classesList = classes,
+                    navController = navController
                 )
             }
         }

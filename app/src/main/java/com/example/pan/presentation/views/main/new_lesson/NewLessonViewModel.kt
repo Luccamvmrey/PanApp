@@ -6,11 +6,14 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pan.core.StringConstants.NO_VALUE
+import com.example.pan.domain.models.InputError
 import com.example.pan.domain.models.Response.Idle
+import com.example.pan.domain.models.Response.Loading
+import com.example.pan.domain.models.classes.PanClass
 import com.example.pan.domain.models.lesson.Lesson
 import com.example.pan.domain.repository.classes.PanClassResponse
 import com.example.pan.domain.repository.lesson.AddLessonResponse
+import com.example.pan.domain.repository.lesson.LessonsList
 import com.example.pan.domain.use_cases.classes.PanClassUseCases
 import com.example.pan.domain.use_cases.lesson.LessonUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,9 +26,18 @@ class NewLessonViewModel @Inject constructor(
     private val lessonUseCases: LessonUseCases,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+    var panClass by mutableStateOf(PanClass())
+    var lessonsList by mutableStateOf<List<Lesson>>(emptyList())
+
+    var lessonTitleError by mutableStateOf(InputError())
+    var videoUrlError by mutableStateOf(InputError())
+    var lessonTextError by mutableStateOf(InputError())
+
     var getClass by mutableStateOf<PanClassResponse>(Idle)
         private set
     var addLesson by mutableStateOf<AddLessonResponse>(Idle)
+        private set
+    var getLessonsList by mutableStateOf<LessonsList>(Idle)
         private set
 
     init {
@@ -34,11 +46,20 @@ class NewLessonViewModel @Inject constructor(
         }
     }
 
-    fun getPanClass(classId: String) = viewModelScope.launch {
+    private fun getPanClass(classId: String) = viewModelScope.launch {
+        getClass = Loading
         getClass = panClassUseCases.getPanClass(classId)
     }
 
-    fun addLesson(lesson: Lesson, classId: String) = viewModelScope.launch {
-        addLesson = lessonUseCases.addLesson(lesson, classId)
+    fun getLessonsList() = viewModelScope.launch {
+        getLessonsList = lessonUseCases.getLessonsList(panClass.classId!!)
+    }
+
+    fun addLesson(lesson: Lesson) = viewModelScope.launch {
+        addLesson = Loading
+        addLesson = lessonUseCases.addLesson(
+            lesson,
+            panClass.classId!!
+        )
     }
 }
