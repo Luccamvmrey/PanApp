@@ -20,9 +20,9 @@ import com.example.pan.core.StringConstants.NO_VALUE
 import com.example.pan.core.StringConstants.VIDEO_NOT_OBLIGATORY
 import com.example.pan.core.StringConstants.VIDEO_URL
 import com.example.pan.domain.models.lesson.Lesson
+import com.example.pan.presentation.views.components.LargeSpacer
 import com.example.pan.presentation.views.components.PanText
 import com.example.pan.presentation.views.components.PanTextField
-import com.example.pan.presentation.views.components.SmallMediumSpacer
 import com.example.pan.presentation.views.components.SmallSpacer
 import com.example.pan.presentation.views.main.new_lesson.NewLessonViewModel
 
@@ -86,7 +86,7 @@ fun NewLessonForm(
         modifier = Modifier.fillMaxWidth()
     )
 
-    SmallMediumSpacer()
+    LargeSpacer()
 
     Button(
         onClick = { /*TODO*/ }

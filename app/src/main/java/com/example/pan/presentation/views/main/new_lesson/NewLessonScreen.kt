@@ -37,8 +37,8 @@ fun NewLessonScreen(
                 ContentHolder(
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalPadding = MaterialTheme.spacing.extraLarge,
-                    horizontalPadding = MaterialTheme.spacing.large,
+                    verticalPadding = MaterialTheme.spacing.large,
+                    horizontalPadding = MaterialTheme.spacing.medium,
                 ) {
                     NewLessonForm { newLesson ->
                         viewModel.addLesson(newLesson)
