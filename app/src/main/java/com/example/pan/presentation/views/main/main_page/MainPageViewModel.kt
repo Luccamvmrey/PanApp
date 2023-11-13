@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pan.core.StringConstants.CLASS_ID_MUST_NOT_BE_EMPTY
 import com.example.pan.core.StringConstants.CLASS_NAME_MUST_NOT_BE_EMPTY
-import com.example.pan.core.createClassId
+import com.example.pan.core.createId
 import com.example.pan.domain.models.InputError
 import com.example.pan.domain.models.Response.Idle
 import com.example.pan.domain.models.Response.Loading
@@ -83,7 +83,7 @@ class MainPageViewModel @Inject constructor(
     }
 
     fun createClass(className: String, teacher: User): PanClass {
-        val classId = createClassId()
+        val classId = createId()
 
         return PanClass(
             className = className,

@@ -6,11 +6,15 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.pan.core.StringConstants.INVALID_VIDEO_URL
+import com.example.pan.core.StringConstants.LESSON_TEXT_MUST_NOT_BE_EMPTY
+import com.example.pan.core.StringConstants.LESSON_TITLE_MUST_NOT_BE_EMPTY
 import com.example.pan.domain.models.InputError
 import com.example.pan.domain.models.Response.Idle
 import com.example.pan.domain.models.Response.Loading
 import com.example.pan.domain.models.classes.PanClass
 import com.example.pan.domain.models.lesson.Lesson
+import com.example.pan.domain.models.lesson.isValidUrl
 import com.example.pan.domain.repository.classes.PanClassResponse
 import com.example.pan.domain.repository.lesson.AddLessonResponse
 import com.example.pan.domain.repository.lesson.LessonsList
@@ -61,5 +65,38 @@ class NewLessonViewModel @Inject constructor(
             lesson,
             panClass.classId!!
         )
+    }
+
+    fun checkFirstForm(lessonTitle: String, lessonText: String, videoUrl: String): Boolean {
+        lessonTitleError = InputError()
+        lessonTextError = InputError()
+        videoUrlError = InputError()
+
+        if (lessonTitle.isEmpty()) {
+            lessonTitleError = InputError(
+                isError = true,
+                message = LESSON_TITLE_MUST_NOT_BE_EMPTY
+            )
+        }
+
+        if (lessonText.isEmpty()) {
+            lessonTextError = InputError(
+                isError = true,
+                message = LESSON_TEXT_MUST_NOT_BE_EMPTY
+            )
+        }
+
+        if (videoUrl.isValidUrl()) {
+            videoUrlError = InputError(
+                isError = true,
+                message = INVALID_VIDEO_URL
+            )
+        }
+
+        if (lessonTitleError.isError || lessonTextError.isError || videoUrlError.isError) {
+            return false
+        }
+
+        return true
     }
 }

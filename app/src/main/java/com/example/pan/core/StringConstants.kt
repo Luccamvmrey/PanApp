@@ -43,10 +43,12 @@ object StringConstants {
     // NewLessonScreen
     const val LESSON_TITLE = "Título da aula"
     const val ENTER_LESSON_TITLE = "Insira o título da aula"
-    const val VIDEO_NOT_OBLIGATORY = "Adicione um vídeo (opcional)"
+    const val VIDEO_NOT_OBLIGATORY = "Opcional"
     const val VIDEO_URL = "URL do vídeo"
     const val CONTENT = "Conteúdo"
     const val ADD = "Adicionar"
+    const val NEXT = "Próximo"
+    const val PREREQUISITES = "Pré-requisitos"
 
     // ProfileScreen
     const val WELCOME_USER = "Bem-vindo, %s"
@@ -71,4 +73,9 @@ object StringConstants {
     const val PASSWORD_RECOVERY_EMAIL_NOT_SENT = "Erro ao enviar e-mail de recuperação de senha."
     const val NAME_MUST_NOT_BE_EMPTY = "Nome não pode ser vazio."
     const val EMAIL_MUST_NOT_BE_EMPTY = "E-mail não pode ser vazio."
+
+    // Lesson
+    const val LESSON_TITLE_MUST_NOT_BE_EMPTY = "Título da aula não pode ser vazio."
+    const val INVALID_VIDEO_URL = "URL do vídeo inválida."
+    const val LESSON_TEXT_MUST_NOT_BE_EMPTY = "Conteúdo da aula não pode ser vazio."
 }

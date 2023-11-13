@@ -11,7 +11,7 @@ fun delayNavigation(navigate: () -> Unit) {
     }, 500)
 }
 
-fun createClassId() : String {
+fun createId() : String {
     val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
     return (1..8)
         .map { allowedChars.random() }
