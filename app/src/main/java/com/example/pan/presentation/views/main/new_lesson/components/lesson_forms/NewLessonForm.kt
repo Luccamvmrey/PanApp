@@ -1,4 +1,4 @@
-package com.example.pan.presentation.views.main.new_lesson.components
+package com.example.pan.presentation.views.main.new_lesson.components.lesson_forms
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.example.pan.domain.models.lesson.Lesson
+import com.example.pan.presentation.views.main.new_lesson.components.lesson_forms.questions_form.QuestionsForm
 
 @Composable
 fun NewLessonForm(
@@ -28,9 +29,10 @@ fun NewLessonForm(
             }
         }
         1 -> {
-
+            QuestionsForm { questions ->
+                lesson.questions = questions
+                onSubmit(lesson)
+            }
         }
     }
-
-
 }

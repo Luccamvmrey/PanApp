@@ -1,6 +1,7 @@
 package com.example.pan.presentation.views.main.my_learning_screen.components.new_class_dialog
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -93,14 +94,15 @@ fun TeacherDialog(
                     text = YOUR_CLASS_ID,
                     style = MaterialTheme.typography.bodySmall
                 )
-                PanText(
-                    horizontalArrangement = Arrangement.Center,
-                    text = panClass.classId!!,
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.primary
-                )
+                SelectionContainer {
+                    PanText(
+                        horizontalArrangement = Arrangement.Center,
+                        text = panClass.classId!!,
+                        style = MaterialTheme.typography.titleLarge,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
             }
         }
     }
-
 }

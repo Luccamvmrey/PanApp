@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.pan.core.StringConstants.INVALID_VIDEO_URL
 import com.example.pan.core.StringConstants.LESSON_TEXT_MUST_NOT_BE_EMPTY
 import com.example.pan.core.StringConstants.LESSON_TITLE_MUST_NOT_BE_EMPTY
+import com.example.pan.core.createId
 import com.example.pan.domain.models.InputError
 import com.example.pan.domain.models.Response.Idle
 import com.example.pan.domain.models.Response.Loading
@@ -60,9 +61,13 @@ class NewLessonViewModel @Inject constructor(
     }
 
     fun addLesson(lesson: Lesson) = viewModelScope.launch {
+        val newLesson = lesson.copy(
+            lessonId = createId()
+        )
+
         addLesson = Loading
         addLesson = lessonUseCases.addLesson(
-            lesson,
+            newLesson,
             panClass.classId!!
         )
     }

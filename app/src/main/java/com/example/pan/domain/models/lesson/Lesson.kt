@@ -10,7 +10,7 @@ data class Lesson(
     val prerequisite: LessonId? = null,
     val videoUrl: String? = null,
     val lessonText: String? = null,
-    val questions: List<Question>? = null
+    var questions: List<Question>? = null
 )
 
 fun String.isValidUrl(): Boolean {

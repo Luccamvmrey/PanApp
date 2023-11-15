@@ -11,13 +11,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.pan.core.delayNavigation
+import com.example.pan.presentation.navigation.Screen
 import com.example.pan.presentation.ui.theme.spacing
 import com.example.pan.presentation.views.components.ContentHolder
 import com.example.pan.presentation.views.components.TopBar
 import com.example.pan.presentation.views.components.newLessonScreenTopBar
+import com.example.pan.presentation.views.main.new_lesson.components.AddLesson
 import com.example.pan.presentation.views.main.new_lesson.components.GetClass
 import com.example.pan.presentation.views.main.new_lesson.components.GetLessonsList
-import com.example.pan.presentation.views.main.new_lesson.components.NewLessonForm
+import com.example.pan.presentation.views.main.new_lesson.components.lesson_forms.NewLessonForm
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,4 +52,11 @@ fun NewLessonScreen(
     )
     GetClass()
     GetLessonsList()
+    AddLesson {
+        delayNavigation {
+            navController.navigate(
+                Screen.MainPageScreen.route
+            )
+        }
+    }
 }

@@ -17,8 +17,9 @@ fun PanTextField(
     value: String,
     onValueChange: (String) -> Unit,
     labelText: String,
-    error: InputError,
+    error: InputError = InputError(),
     singleLine: Boolean = true,
+    trailingIcon: @Composable () -> Unit = {},
     keyboardType: KeyboardType = KeyboardType.Text
 ) {
     OutlinedTextField(
@@ -39,6 +40,9 @@ fun PanTextField(
                     color = MaterialTheme.colorScheme.error
                 )
             }
+        },
+        trailingIcon = {
+            trailingIcon()
         },
         singleLine = singleLine,
         modifier = modifier

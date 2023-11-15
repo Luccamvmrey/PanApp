@@ -1,6 +1,5 @@
-package com.example.pan.presentation.views.main.new_lesson.components
+package com.example.pan.presentation.views.main.new_lesson.components.lesson_forms.questions_form
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -9,19 +8,20 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.pan.core.StringConstants.PREREQUISITES
-import com.example.pan.domain.models.lesson.Lesson
+import com.example.pan.core.StringConstants.CORRECT_ANSWER
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PrerequisitesDropdownMenu(
+fun CorrectAnswerDropdown(
     currentValue: String,
     onValueChange: (String) -> Unit,
-    lessonsList: List<Lesson>,
     isExpanded: Boolean,
-    onExpandedChange: (Boolean) -> Unit,
+    onExpandedChange: (Boolean) -> Unit
 ) {
-    val value = currentValue.ifEmpty { "Nenhum" }
+    val value = when (currentValue) {
+        "-1" -> "-"
+        else -> currentValue
+    }
 
     ExposedDropdownMenuBox(
         expanded = isExpanded,
@@ -37,9 +37,9 @@ fun PrerequisitesDropdownMenu(
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)
             },
             label = {
-                Text(text = PREREQUISITES)
+                Text(text = CORRECT_ANSWER)
             },
-            modifier = Modifier.menuAnchor().fillMaxWidth()
+            modifier = Modifier.menuAnchor()
         )
         ExposedDropdownMenu(
             expanded = isExpanded,
@@ -47,13 +47,13 @@ fun PrerequisitesDropdownMenu(
                 onExpandedChange(false)
             }
         ) {
-            lessonsList.forEach {
+            for (i in 1..4) {
                 DropdownMenuItem(
                     text = {
-                        Text(text = it.lessonTitle!!)
+                        Text(text = i.toString())
                     },
                     onClick = {
-                        onValueChange(it.lessonTitle!!)
+                        onValueChange(i.toString())
                         onExpandedChange(false)
                     }
                 )
