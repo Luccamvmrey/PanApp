@@ -6,6 +6,8 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
+import com.example.pan.core.makeToast
 import com.example.pan.domain.models.lesson.Lesson
 import com.example.pan.presentation.ui.theme.spacing
 
@@ -13,6 +15,8 @@ import com.example.pan.presentation.ui.theme.spacing
 fun LessonsGrid(
     lessons: List<Lesson>
 ) {
+    val context = LocalContext.current
+
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
@@ -22,7 +26,10 @@ fun LessonsGrid(
             LessonCard(
                 lesson = lesson,
                 onClick = {
-                    // TODO: Navigate to lesson screen
+                    makeToast(
+                        context,
+                        "Aula ${lesson.order}",
+                    )
                 }
             )
         }

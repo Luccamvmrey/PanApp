@@ -91,7 +91,7 @@ class NewLessonViewModel @Inject constructor(
             )
         }
 
-        if (videoUrl.isValidUrl()) {
+        if (!videoUrl.isValidUrl()) {
             videoUrlError = InputError(
                 isError = true,
                 message = INVALID_VIDEO_URL
