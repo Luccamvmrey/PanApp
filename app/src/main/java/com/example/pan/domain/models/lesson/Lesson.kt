@@ -5,6 +5,7 @@ import android.util.Patterns
 typealias LessonId = String
 
 data class Lesson(
+    var order: Int? = null,
     val lessonId: String? = null,
     val lessonTitle: String? = null,
     val prerequisite: LessonId? = null,

@@ -105,12 +105,16 @@ fun FirstForm(
                     videoUrl = videoUrl
                 )
             ) {
+                val prerequisiteId = viewModel.lessonsList.filter { it.lessonTitle == prerequisite }
+                    .map { it.lessonId }
+                    .firstOrNull()
+
                 onSubmit(
                     Lesson(
                         lessonTitle = lessonTitle,
                         videoUrl = videoUrl,
                         lessonText = lessonText,
-                        prerequisite = prerequisite
+                        prerequisite = prerequisiteId
                     )
                 )
             }

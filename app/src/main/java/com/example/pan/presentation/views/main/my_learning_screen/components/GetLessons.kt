@@ -11,7 +11,7 @@ import com.example.pan.presentation.views.main.main_page.MainPageViewModel
 @Composable
 fun GetLessons(
     viewModel: MainPageViewModel = hiltViewModel(),
-    lessonsList: (List<Lesson>) -> Unit
+    lessonsList: @Composable (List<Lesson>) -> Unit
 ) {
     when (val getLessonsResponse = viewModel.getLessons) {
         is Loading -> PanProgressBar()

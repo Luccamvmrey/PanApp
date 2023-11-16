@@ -1,6 +1,7 @@
 package com.example.pan.presentation.views.main.my_learning_screen.components.new_class_dialog
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
@@ -12,7 +13,9 @@ fun NewClassDialogCard(
     content: @Composable () -> Unit
 ) {
     Card (
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp),
         shape = RoundedCornerShape(12.dp)
     ) {
         content()

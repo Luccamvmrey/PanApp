@@ -65,9 +65,16 @@ class LessonRepositoryImpl @Inject constructor(
         val lessons = classToAdd.lessonIdList as ArrayList
         lessons.add(lesson.lessonId!!)
 
+        lesson.order = lessons.size
+
+        lessonsRef
+            .document(lesson.lessonId)
+            .set(lesson)
+            .await()
+
         classesRef
             .document(classId)
-            .update("lessonsIdList", lessons)
+            .update("lessonIdList", lessons)
             .await()
 
         Success(true)

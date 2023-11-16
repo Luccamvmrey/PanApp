@@ -109,6 +109,10 @@ fun SingleQuestionForm(
                         correctAnswerIndex = correctAnswer.toInt()
                     )
                 )
+
+                questionText = NO_VALUE
+                answers.forEach { it.value = NO_VALUE }
+                correctAnswer = "-1"
             }
         }
     ) {

@@ -49,7 +49,10 @@ fun MyLearningScreen(
             }
         )
 
-        MyLearningContent(selectedClassId = selectedClassId)
+        MyLearningContent(
+            selectedClassId = selectedClassId,
+            user = user
+        )
     }
     if (openDialog) {
         NewClassDialog(
