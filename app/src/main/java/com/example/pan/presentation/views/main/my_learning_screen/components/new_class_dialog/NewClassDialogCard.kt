@@ -15,7 +15,7 @@ fun NewClassDialogCard(
     Card (
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp),
+            .height(250.dp),
         shape = RoundedCornerShape(12.dp)
     ) {
         content()

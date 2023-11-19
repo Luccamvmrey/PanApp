@@ -53,6 +53,7 @@ fun SingleQuestionForm(
         value = questionText,
         onValueChange = { questionText = it },
         labelText = QUESTION_TEXT,
+        singleLine = false
     )
 
     SmallSpacer()
@@ -78,7 +79,8 @@ fun SingleQuestionForm(
                     Icon(imageVector = Icons.Default.Check, contentDescription = "Correct Answer")
                 }
             },
-            singleLine = false
+            singleLine = false,
+            hasNext = index != answers.lastIndex
         )
     }
 

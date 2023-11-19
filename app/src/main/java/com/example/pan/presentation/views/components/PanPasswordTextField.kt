@@ -54,6 +54,7 @@ fun PanPasswordTextField(
             keyboardType = KeyboardType.Password,
             imeAction = ImeAction.Go
         ),
+        singleLine = true,
         keyboardActions = keyboardActions,
         label = {
             Text(

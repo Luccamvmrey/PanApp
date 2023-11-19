@@ -51,6 +51,7 @@ fun FirstForm(
         onValueChange = { lessonTitle = it },
         labelText = LESSON_TITLE,
         error = viewModel.lessonTitleError,
+        singleLine = false,
         modifier = Modifier.fillMaxWidth()
     )
 
