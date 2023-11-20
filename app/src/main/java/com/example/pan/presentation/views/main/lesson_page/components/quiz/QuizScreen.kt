@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.example.pan.core.makeToast
 import com.example.pan.domain.models.lesson.Question
+import com.example.pan.presentation.views.components.MediumSpacer
 import com.example.pan.presentation.views.components.PanText
 
 @Composable
@@ -34,6 +35,9 @@ fun QuizScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         PanText(text = "${currentQuestionIndex + 1}ª pergunta")
+
+        MediumSpacer()
+
         QuestionDisplay(
             question = questionsList[currentQuestionIndex],
             selectedAnswerIndex = selectedAnswerIndex,

@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.example.pan.core.StringConstants.GO_TO_QUESTIONS
 import com.example.pan.domain.models.lesson.Lesson
+import com.example.pan.presentation.views.components.MediumSpacer
 import com.example.pan.presentation.views.components.SmallMediumSpacer
 import com.example.pan.presentation.views.main.lesson_page.components.ScrollableColumn
 import com.example.pan.presentation.views.main.lesson_page.components.quiz.QuizScreen
@@ -35,6 +36,8 @@ fun LessonDisplay(
                 }
 
                 LessonContent(lessonContent = lesson.lessonText!!)
+
+                MediumSpacer()
 
                 Button(
                     onClick = {

@@ -22,7 +22,7 @@ fun LessonContent(
         Column(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(horizontal = 24.dp, vertical = 48.dp)
+            modifier = Modifier.padding(24.dp)
         ) {
             Text(
                 text = lessonContent,

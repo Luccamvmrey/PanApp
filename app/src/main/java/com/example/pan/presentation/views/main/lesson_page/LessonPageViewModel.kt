@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.pan.domain.models.Response
 import com.example.pan.domain.models.Response.Idle
 import com.example.pan.domain.models.Response.Loading
+import com.example.pan.domain.models.Response.Success
 import com.example.pan.domain.models.lesson.Lesson
 import com.example.pan.domain.models.user.User
 import com.example.pan.domain.repository.user.SingleUser
@@ -52,7 +53,11 @@ class LessonPageViewModel @Inject constructor(
     }
 
     fun updateUser(successCount: Int) = viewModelScope.launch {
-        if (loggedUser.completedLessons!!.contains(currentLesson.lessonId)) return@launch
+        if (loggedUser.completedLessons!!.contains(currentLesson.lessonId)) {
+            updateUser = Success(true)
+
+            return@launch
+        }
 
         val updatedCompletedLessons = loggedUser.completedLessons!!.toMutableList()
         updatedCompletedLessons.add(currentLesson.lessonId!!)
