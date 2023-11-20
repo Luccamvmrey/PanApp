@@ -9,17 +9,23 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.pan.core.delayNavigation
+import com.example.pan.presentation.navigation.Screen
 import com.example.pan.presentation.ui.theme.spacing
 import com.example.pan.presentation.views.components.ContentHolder
 import com.example.pan.presentation.views.components.TopBar
 import com.example.pan.presentation.views.components.TopBarConfiguration
 import com.example.pan.presentation.views.main.lesson_page.components.GetLesson
-import com.example.pan.presentation.views.main.lesson_page.components.LessonDisplay
+import com.example.pan.presentation.views.main.lesson_page.components.GetUser
+import com.example.pan.presentation.views.main.lesson_page.components.UpdateUser
+import com.example.pan.presentation.views.main.lesson_page.components.lesson.LessonDisplay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LessonPageScreen(
+    viewModel: LessonPageViewModel = hiltViewModel(),
     navController: NavController
 ) {
     GetLesson { lesson ->
@@ -40,11 +46,21 @@ fun LessonPageScreen(
                     ) {
                         LessonDisplay(
                             lesson = lesson,
-                            navController = navController
+                            onContinue = { correctAnswers ->
+                                viewModel.updateUser(correctAnswers)
+                            }
                         )
                     }
                 }
             }
         )
+    }
+    GetUser()
+    UpdateUser {
+        delayNavigation {
+            navController.navigate(
+                Screen.MainPageScreen.route
+            )
+        }
     }
 }

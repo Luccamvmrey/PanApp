@@ -50,6 +50,7 @@ object StringConstants {
     const val PREREQUISITES = "Pré-requisitos"
     const val QUESTION_TEXT = "Pergunta"
     const val CORRECT_ANSWER = "Resposta correta"
+    const val GO_TO_QUESTIONS = "Ir para perguntas"
 
     // ProfileScreen
     const val WELCOME_USER = "Bem-vindo, %s"

@@ -1,4 +1,4 @@
-package com.example.pan.presentation.views.main.lesson_page.components
+package com.example.pan.presentation.views.main.lesson_page.components.lesson
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
