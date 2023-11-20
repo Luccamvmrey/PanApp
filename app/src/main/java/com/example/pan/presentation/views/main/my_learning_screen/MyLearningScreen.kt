@@ -51,7 +51,8 @@ fun MyLearningScreen(
 
         MyLearningContent(
             selectedClassId = selectedClassId,
-            user = user
+            user = user,
+            navController = navController
         )
     }
     if (openDialog) {

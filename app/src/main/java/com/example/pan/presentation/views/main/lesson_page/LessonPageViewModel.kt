@@ -9,19 +9,20 @@ import androidx.lifecycle.viewModelScope
 import com.example.pan.domain.models.Response
 import com.example.pan.domain.models.Response.Idle
 import com.example.pan.domain.models.lesson.Lesson
-import com.example.pan.domain.use_cases.classes.PanClassUseCases
 import com.example.pan.domain.use_cases.lesson.LessonUseCases
+import com.example.pan.domain.use_cases.user.UserUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LessonPageViewModel @Inject constructor(
-    private val panClassUseCases: PanClassUseCases,
+    private val userUseCases: UserUseCases,
     private val lessonUseCases: LessonUseCases,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    private var getLesson by mutableStateOf<Response<Lesson>>(Idle)
+    var getLesson by mutableStateOf<Response<Lesson>>(Idle)
+        private set
 
     init {
         savedStateHandle.get<String>("lessonId")?.let { lessonId ->

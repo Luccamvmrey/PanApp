@@ -42,7 +42,7 @@ object StringConstants {
 
     // NewLessonScreen
     const val LESSON_TITLE = "Título da aula"
-    const val VIDEO_NOT_OBLIGATORY = "Opcional"
+    const val VIDEO_NOT_OBLIGATORY = "Opcional (Evite vídeos do YouTube)"
     const val VIDEO_URL = "URL do vídeo"
     const val CONTENT = "Conteúdo"
     const val ADD = "Adicionar"

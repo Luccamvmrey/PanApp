@@ -7,12 +7,11 @@ import com.example.pan.core.StringConstants
 
 data class TopBarConfiguration(
     val title: String,
-    val actions: ImageVector?,
+    val actions: ImageVector? = null,
 )
 
 val myLearningScreenTopBar = TopBarConfiguration(
-    title = StringConstants.CLASSES_LESSONS,
-    actions = null,
+    title = StringConstants.CLASSES_LESSONS
 )
 
 val profileScreenTopBar = TopBarConfiguration(
@@ -21,6 +20,5 @@ val profileScreenTopBar = TopBarConfiguration(
 )
 
 val newLessonScreenTopBar = TopBarConfiguration(
-    title = StringConstants.NEW_LESSON,
-    actions = null,
+    title = StringConstants.NEW_LESSON
 )

@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.pan.presentation.views.main.edit_profile.EditProfileScreen
+import com.example.pan.presentation.views.main.lesson_page.LessonPageScreen
 import com.example.pan.presentation.views.main.main_page.MainPageScreen
 import com.example.pan.presentation.views.main.new_lesson.NewLessonScreen
 import com.example.pan.presentation.views.signin.login.LoginScreen
@@ -39,6 +40,11 @@ fun Navigation() {
             route = Screen.NewLessonScreen.route + "/{selectedClassId}"
         ) {
             NewLessonScreen(navController = navController)
+        }
+        composable(
+            route = Screen.LessonPageScreen.route + "/{lessonId}"
+        ) {
+            LessonPageScreen(navController = navController)
         }
     }
 }
