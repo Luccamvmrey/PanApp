@@ -108,7 +108,7 @@ fun SingleQuestionForm(
                     Question(
                         questionText = questionText,
                         answers = answers.map { it.value },
-                        correctAnswerIndex = correctAnswer.toInt()
+                        correctAnswerIndex = correctAnswer.toInt() - 1
                     )
                 )
 
