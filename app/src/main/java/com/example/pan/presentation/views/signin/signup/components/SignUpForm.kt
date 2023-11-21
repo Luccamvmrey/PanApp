@@ -15,10 +15,10 @@ import com.example.pan.core.StringConstants.PASSWORD
 import com.example.pan.core.StringConstants.SIGNUP
 import com.example.pan.domain.models.InputError
 import com.example.pan.domain.models.user.User
-import com.example.pan.presentation.views.components.ExtraLargeSpacer
-import com.example.pan.presentation.views.components.MediumSpacer
+import com.example.pan.presentation.views.components.LargeSpacer
 import com.example.pan.presentation.views.components.PanPasswordTextField
 import com.example.pan.presentation.views.components.PanTextField
+import com.example.pan.presentation.views.components.SmallMediumSpacer
 
 @Composable
 fun SignUpForm(
@@ -40,7 +40,7 @@ fun SignUpForm(
         error = nameError
     )
 
-    MediumSpacer()
+    SmallMediumSpacer()
 
     PanTextField(
         value = email,
@@ -50,7 +50,7 @@ fun SignUpForm(
         keyboardType = KeyboardType.Email
     )
 
-    MediumSpacer()
+    SmallMediumSpacer()
 
     PanPasswordTextField(
         value = password,
@@ -59,7 +59,7 @@ fun SignUpForm(
         error = passwordError
     )
 
-    MediumSpacer()
+    SmallMediumSpacer()
 
     TeacherDropdownMenu(
         isTeacher = isTeacher,
@@ -68,7 +68,7 @@ fun SignUpForm(
         onExpandedChange = { isExpanded = it }
     )
 
-    ExtraLargeSpacer()
+    LargeSpacer()
 
     Button(
         onClick = {
