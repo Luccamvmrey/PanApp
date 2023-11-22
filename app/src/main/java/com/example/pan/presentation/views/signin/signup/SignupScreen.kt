@@ -1,6 +1,7 @@
 package com.example.pan.presentation.views.signin.signup
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -25,7 +26,9 @@ fun SignupScreen(
 
     ContentHolder(
         verticalArrangement = Arrangement.Center,
-        modifier = Modifier.verticalScroll(scrollState)
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(scrollState)
     ) {
         PanText(
             text = SIGNUP,
