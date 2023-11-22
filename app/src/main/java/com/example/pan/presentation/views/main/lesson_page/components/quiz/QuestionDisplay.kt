@@ -23,44 +23,52 @@ fun QuestionDisplay(
     onAnswerSelected: (Int) -> Unit,
     onAnswerSubmitted: () -> Unit
 ) {
-    Card(
-        shape = RoundedCornerShape(16.dp),
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxWidth()
     ) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp, vertical = 48.dp)
+        Card(
+            shape = RoundedCornerShape(16.dp),
         ) {
-            Text(
-                text = question.questionText!!,
-                style = MaterialTheme.typography.titleMedium
-            )
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp, vertical = 48.dp)
+            ) {
+                Text(
+                    text = question.questionText!!,
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
         }
-    }
 
-    MediumSpacer()
+        MediumSpacer()
 
-    question.answers?.forEachIndexed { index, answer ->
-        Answer(
-            answerText = answer,
-            isSelected = index == selectedAnswerIndex,
-            onAnswerSelected = {
-                onAnswerSelected(index)
+        question.answers?.forEachIndexed { index, answer ->
+            Answer(
+                answerText = answer,
+                isSelected = index == selectedAnswerIndex,
+                onAnswerSelected = {
+                    onAnswerSelected(index)
+                }
+            )
+            when (index) {
+                question.answers.size - 1 -> {
+                    MediumSpacer()
+                }
+
+                else -> SmallSpacer()
+            }
+        }
+
+        SubmitButton(
+            onAnswerSubmitted = {
+                onAnswerSubmitted()
             }
         )
-        when (index) {
-            question.answers.size - 1 -> {
-                MediumSpacer()
-            }
-            else -> SmallSpacer()
-        }
     }
-
-    SubmitButton(
-        onAnswerSubmitted = {
-            onAnswerSubmitted()
-        }
-    )
 }

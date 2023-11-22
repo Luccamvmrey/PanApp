@@ -8,6 +8,16 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 data class Spacing(
+    /**
+     * The default spacing used throughout.
+     * default = 0.dp
+     * extraSmall = 8.dp
+     * small = 12.dp
+     * smallMedium = 24.dp
+     * medium = 32.dp
+     * large = 48.dp
+     * extraLarge = 64.dp
+     */
     val default: Dp = 0.dp,
     val extraSmall: Dp = 8.dp,
     val small: Dp = 12.dp,

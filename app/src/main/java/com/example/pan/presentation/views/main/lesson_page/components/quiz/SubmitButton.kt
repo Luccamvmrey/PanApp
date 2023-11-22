@@ -15,8 +15,8 @@ fun SubmitButton(
     onAnswerSubmitted: () -> Unit
 ) {
     val buttonColors = ButtonDefaults.elevatedButtonColors(
-        containerColor = MaterialTheme.colorScheme.tertiary,
-        contentColor = MaterialTheme.colorScheme.onTertiary
+        containerColor = MaterialTheme.colorScheme.primary,
+        contentColor = MaterialTheme.colorScheme.onPrimary
     )
 
     Row(

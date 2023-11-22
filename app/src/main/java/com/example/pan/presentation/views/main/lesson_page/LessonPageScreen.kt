@@ -42,7 +42,7 @@ fun LessonPageScreen(
                         verticalArrangement = Arrangement.Top,
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalPadding = MaterialTheme.spacing.small,
-                        horizontalPadding = MaterialTheme.spacing.medium,
+                        horizontalPadding = MaterialTheme.spacing.smallMedium,
                     ) {
                         LessonDisplay(
                             lesson = lesson,

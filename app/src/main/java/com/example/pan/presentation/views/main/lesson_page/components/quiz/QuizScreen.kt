@@ -5,22 +5,20 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import com.example.pan.core.makeToast
 import com.example.pan.domain.models.lesson.Question
-import com.example.pan.presentation.views.components.MediumSpacer
 import com.example.pan.presentation.views.components.PanText
+import com.example.pan.presentation.views.components.SmallMediumSpacer
+import com.example.pan.presentation.views.components.SmallSpacer
 
 @Composable
 fun QuizScreen(
     questionsList: List<Question>,
     onFinished: (Int) -> Unit
 ) {
-    val context = LocalContext.current
-
     var currentQuestionIndex by remember {
         mutableIntStateOf(0)
     }
@@ -30,13 +28,25 @@ fun QuizScreen(
     var successCount by remember {
         mutableIntStateOf(0)
     }
+    val scoreboard = List(4) {
+        remember {
+            mutableStateOf(false)
+        }
+    }
 
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
         PanText(text = "${currentQuestionIndex + 1}ª pergunta")
 
-        MediumSpacer()
+        SmallSpacer()
+
+        ScoreboardCarousel(
+            successScore = scoreboard,
+            currentQuestionIndex = currentQuestionIndex
+        )
+
+        SmallMediumSpacer()
 
         QuestionDisplay(
             question = questionsList[currentQuestionIndex],
@@ -56,15 +66,7 @@ fun QuizScreen(
                     )
                 ) {
                     successCount++
-                    makeToast(
-                        context,
-                        "Resposta correta!"
-                    )
-                } else {
-                    makeToast(
-                        context,
-                        "Resposta incorreta!"
-                    )
+                    scoreboard[currentQuestionIndex].value = true
                 }
 
                 // Go to next question or to results screen if there are no questions left

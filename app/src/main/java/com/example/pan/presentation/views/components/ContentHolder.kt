@@ -18,6 +18,7 @@ import com.example.pan.presentation.ui.theme.spacing
 
 @Composable
 fun ContentHolder(
+    modifier: Modifier = Modifier,
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
     verticalArrangement: Arrangement.Vertical = Arrangement.Center,
     verticalPadding: Dp = MaterialTheme.spacing.extraLarge,
@@ -33,7 +34,7 @@ fun ContentHolder(
     Column(
         horizontalAlignment = horizontalAlignment,
         verticalArrangement = verticalArrangement,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .clickable(
                 indication = null,
