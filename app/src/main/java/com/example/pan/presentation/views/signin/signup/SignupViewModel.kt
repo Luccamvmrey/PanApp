@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignupViewModel @Inject constructor(
+class  SignupViewModel @Inject constructor(
     private val userUseCases: UserUseCases
 ) : ViewModel() {
     var nameError by mutableStateOf(InputError())
